@@ -13,8 +13,8 @@ feature 'User create new video class' do
       fill_in 'Nome', with: 'Aula Yoga'
       fill_in 'Descrição', with: 'Aula curta sobre alongamento'
       fill_in 'Endereço URL', with: 'www.smartflix.com.br/aula/aula-yoga'
-      fill_in 'Data de início', with: DateTime.now
-      fill_in 'Data de fim', with: 10.days.since(DateTime.now)
+      fill_in 'Data de início', with: '17/03/2021 20:00:00'
+      fill_in 'Data de fim', with: '27/03/2021 20:00:00'
       click_on 'Criar vídeo'
     end
 
