@@ -1,2 +1,8 @@
 <h1>Smartflix</h1>
 <p>Escolha seu plano</p>
+
+<% @plans.each do |plan| %>
+  <%= plan.name %> 
+  <%= number_to_currency plan.price %>
+  <%= link_to 'Contratar', nil %> <%# Botão redireciona para login %>
+<% end %>

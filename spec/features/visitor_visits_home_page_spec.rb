@@ -1,14 +1,7 @@
 require 'rails_helper'
 
 feature 'Visitor visits home page' do
-  scenario 'Successfully' do
-    visit root_path
-
-    expect(page).to have_content('Smartflix')
-    expect(page).to have_content('Escolha seu plano')
-  end
-
-  xscenario 'And sees subscription plans options' do
+  scenario 'And sees subscription plans options' do
     resp_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     resp_double = double('faraday_response', status: 200, body: resp_json )
 
@@ -16,6 +9,9 @@ feature 'Visitor visits home page' do
                                    .and_return(resp_double)
 
     visit root_path
+
+    expect(page).to have_content('Smartflix')
+    expect(page).to have_content('Escolha seu plano')
 
     expect(page).to have_content('Plano Smart')
     expect(page).to have_content('R$ 69,90')
