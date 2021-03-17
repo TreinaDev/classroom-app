@@ -11,6 +11,11 @@
   </head>
 
   <body>
+
+    <nav>
+      <%= link_to 'Minha Conta', user_path(current_user) %>
+    </nav>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
