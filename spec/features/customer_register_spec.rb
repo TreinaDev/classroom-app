@@ -4,7 +4,7 @@ feature 'customer register' do
   scenario 'from root_path' do
     visit root_path
 
-    click_on 'Registrar-se'
+    click_on 'Alunos'
 
     expect(current_path).to eq(new_customer_registration_path)
   end
