@@ -36,6 +36,11 @@
     <%= f.number_field :age %>
   </div>
 
+  <div class="field">
+    <%= f.label :payment_methods %><br />
+    <%= f.select :payment_methods, ['Cartao de credito', 'Boleto', 'Pix'] %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Inscrever-se" %>
   </div>

@@ -50,4 +50,6 @@ feature 'customer register' do
     expect(page).to have_content('Idade não pode ficar em branco')
     expect(Customer.last).to eq(nil)
   end
+
+  scenario ''
 end
