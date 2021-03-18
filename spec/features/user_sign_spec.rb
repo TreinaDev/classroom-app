@@ -6,15 +6,18 @@ feature 'User sign up' do
     click_on 'Acesso Professor'
     click_on 'Registrar-se'
 
-    within('form') do 
+    within('form') do
       fill_in 'Nome Completo', with: 'Milena Ferreira'
+      attach_file 'Foto', Rails.root.join('spec', 'support', 'foto_professor.jpg')
       fill_in 'E-mail', with: 'milena@smartflix.com.br'
       fill_in 'Senha', with: '123456'
       fill_in 'Confirme sua senha', with: '123456'
       click_on 'Registrar-se'
     end
 
+    expect(current_path).to eq root_path
     expect(page).to have_content 'milena@smartflix.com.br'
+    expect(User.last.photo.attached?).to eq true
     expect(page).to have_content 'Login efetuado com sucesso. Se não foi autorizado,'\
                                   ' a confirmação será enviada por e-mail'
   end
@@ -24,7 +27,7 @@ feature 'User sign up' do
     click_on 'Acesso Professor'
     click_on 'Registrar-se'
 
-    within('form') do 
+    within('form') do
       fill_in 'Nome Completo', with: ''
       fill_in 'E-mail', with: ''
       fill_in 'Senha', with: ''
@@ -43,7 +46,7 @@ feature 'User sign up' do
     click_on 'Acesso Professor'
     click_on 'Registrar-se'
 
-    within('form') do 
+    within('form') do
       fill_in 'Nome Completo', with: 'Milena Ferreira'
       fill_in 'E-mail', with: 'milena@mail.com.br'
       fill_in 'Senha', with: '123456'

@@ -14,9 +14,9 @@
     <header>
       <% if user_signed_in? %>
         <%= current_user.email %>
-        <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
+        <%= link_to t('misc.exit'), destroy_user_session_path, method: :delete %>
       <% else %>
-        <%= link_to 'Acesso Professor', new_user_session_path %>
+        <%= link_to t('misc.user_sign_in'), new_user_session_path %>
       <% end %>
     </header>
 
