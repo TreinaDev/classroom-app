@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'User sign up' do
   scenario 'successfully' do
+    allow(Plan).to receive(:all).and_return([])
+
     visit root_path
     click_on 'Acesso Professor'
     click_on 'Registrar-se'
@@ -23,6 +25,8 @@ feature 'User sign up' do
   end
 
   scenario 'attributes cannot be blank' do
+    allow(Plan).to receive(:all).and_return([])
+    
     visit root_path
     click_on 'Acesso Professor'
     click_on 'Registrar-se'
@@ -42,6 +46,8 @@ feature 'User sign up' do
   end
 
   scenario 'domain must be @smartflix.com.br' do
+    allow(Plan).to receive(:all).and_return([])
+
     visit root_path
     click_on 'Acesso Professor'
     click_on 'Registrar-se'
@@ -61,6 +67,8 @@ end
 
 feature 'User sign in' do
   scenario 'successfully' do
+    allow(Plan).to receive(:all).and_return([])
+
     user = create(:user)
 
     visit root_path
@@ -78,6 +86,8 @@ feature 'User sign in' do
   end
 
   scenario 'and logout' do
+    allow(Plan).to receive(:all).and_return([])
+
     user = create(:user)
 
     login_as user
