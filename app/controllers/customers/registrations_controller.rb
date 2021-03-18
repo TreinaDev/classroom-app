@@ -17,7 +17,7 @@ class Customers::RegistrationsController < Devise::RegistrationsController
     if resource.send_data_to_enrollments_api
       super(resource)
     else
-      root_path, alert: 'Falha na comunicação com sistema de Matrícula'
+      customer_registration_path
     end
   end
 
