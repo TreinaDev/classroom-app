@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_210804) do
+ActiveRecord::Schema.define(version: 2021_03_17_233123) do
 
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -40,11 +40,13 @@ ActiveRecord::Schema.define(version: 2021_03_16_210804) do
     t.string "name"
     t.text "description"
     t.string "video_url"
-    t.string "user"
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_video_classes_on_user_id"
   end
 
+  add_foreign_key "video_classes", "users"
 end

@@ -1,5 +1,17 @@
 <h1>Novo Vídeo</h1>
 
+<% if @video_class.errors.any? %>
+  <div class="alert">
+    <p>Não foi possível criar o vídeo</p>
+    <p>Confira os erros abaixo:</p>
+    <ul>
+      <% @video_class.errors.full_messages.each do |error|%>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end%>
+
 <%= form_with(model: @video_class) do |f| %>
   <div>
     <%= f.label :name %>
