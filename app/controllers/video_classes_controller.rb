@@ -1,4 +1,5 @@
 class VideoClassesController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @video_class = VideoClass.new

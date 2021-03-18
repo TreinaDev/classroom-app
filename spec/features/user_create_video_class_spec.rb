@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 feature 'User create new video class' do
+  scenario 'and must be signed in' do
+    user = create(:user)
+
+    view_context = instance_double(ActionView::Base)
+    some_custom_path = '/'
+    allow(view_context).to receive(:view_renderer).and_return(some_custom_path)
+
+    visit user_path(user)
+
+    expect(current_path).to eq new_user_session_path
+  end
+
   scenario 'successfully' do
     user = create(:user)
 
@@ -45,5 +57,5 @@ feature 'User create new video class' do
     expect(page).to have_content('Não foi possível criar o vídeo')
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Descrição não pode ficar em branco')    
-  end 
+  end
 end
