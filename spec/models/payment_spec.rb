@@ -24,5 +24,27 @@ describe Payment do
       expect(payments.second.name).to eq('Boleto')
       expect(payments.third.name).to eq('Pix')   
     end
+
+    it 'should return empty if bad request' do
+      resp_double = double('faraday_response', status: 400, body: '')
+
+      allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
+                                     .and_return(resp_double)
+      
+      payments = Payment.all
+
+      expect(payments.empty?).to eq(true)
+    end
+
+    it 'should return empty if internal server error' do
+      resp_double = double('faraday_response', status: 500, body: '')
+
+      allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
+                                     .and_return(resp_double)
+      
+      payments = Payment.all
+
+      expect(payments.empty?).to eq(true)
+    end
   end
 end

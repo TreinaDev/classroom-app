@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= f.label :payment_methods %><br />
-    <%= f.select :payment_methods, ['Cartao de credito', 'Boleto', 'Pix'] %>
+    <%= f.select :payment_methods, @payments %>
   </div>
 
   <div class="actions">
