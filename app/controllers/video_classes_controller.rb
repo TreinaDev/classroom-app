@@ -1,5 +1,5 @@
 class VideoClassesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[new create]
 
   def new
     @video_class = VideoClass.new

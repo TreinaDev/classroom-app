@@ -39,7 +39,7 @@ feature 'User sign up' do
       click_on 'Registrar-se'
     end
 
-    expect(page).to have_content 'Não foi possível salvar usuário'
+    expect(page).to have_content 'Não foi possível salvar professor'
     expect(page).to have_content 'Nome Completo não pode ficar em branco'
     expect(page).to have_content 'E-mail não pode ficar em branco'
     expect(page).to have_content 'Senha não pode ficar em branco'
@@ -60,7 +60,7 @@ feature 'User sign up' do
       click_on 'Registrar-se'
     end
 
-    expect(page).to have_content 'Não foi possível salvar usuário'
+    expect(page).to have_content 'Não foi possível salvar professor'
     expect(page).to have_content 'Email precisa ser da empresa SmartFlix'
   end
 end
@@ -76,7 +76,7 @@ feature 'User sign in' do
 
     within('form') do
       fill_in 'E-mail', with: user.email
-      fill_in 'Senha', with: '123456'
+      fill_in 'Senha', with: user.password
       click_on 'Entrar'
     end
 
