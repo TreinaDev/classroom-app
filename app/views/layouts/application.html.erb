@@ -11,12 +11,18 @@
   </head>
 
   <body>
+    <header>
+      <nav>
+        <% if user_signed_in? %>
+          <%= current_user.email %>
+          <%= link_to 'Minha Conta', user_path(current_user) %>
 
-    <nav>
-      <% if user_signed_in? %>
-        <%= link_to 'Minha Conta', user_path(current_user) %>
-      <% end %>
-    </nav>
+          <%= link_to t('misc.exit'), destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to t('misc.user_sign_in'), new_user_session_path %>
+        <% end %>
+      </nav>
+    </header>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
