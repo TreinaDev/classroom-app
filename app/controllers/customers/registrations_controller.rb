@@ -11,6 +11,13 @@ class Customers::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  #POST /resource
+  def create
+    super do
+      @payments = Payment.all
+    end
+  end
+
   protected
 
   def after_sign_up_path_for(resource)
@@ -20,11 +27,6 @@ class Customers::RegistrationsController < Devise::RegistrationsController
       customer_registration_path
     end
   end
-
-  # POST /resource
-  # def create
-  #   super
-  # end
 
   # GET /resource/edit
   # def edit

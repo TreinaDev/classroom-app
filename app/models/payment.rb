@@ -10,6 +10,6 @@ class Payment
     return [] if response.status == 400 || response.status == 500
 
     json_response = JSON.parse(response.body, symbolize_names: true)
-    json_response.map.with_object([]) { |r, payments| payments << new(name: r[:name]) }
+    json_response.map.with_object([]) { |r, payments| payments << r[:name] }
   end
 end

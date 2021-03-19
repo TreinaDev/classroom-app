@@ -20,9 +20,9 @@ describe Payment do
       payments = Payment.all
 
       expect(payments.length).to eq(3)
-      expect(payments.first.name).to eq('Cartão de Crédito')
-      expect(payments.second.name).to eq('Boleto')
-      expect(payments.third.name).to eq('Pix')   
+      expect(payments.first).to eq('Cartão de Crédito')
+      expect(payments.second).to eq('Boleto')
+      expect(payments.third).to eq('Pix')
     end
 
     it 'should return empty if bad request' do

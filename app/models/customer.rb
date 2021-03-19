@@ -14,6 +14,8 @@ class Customer < ApplicationRecord
   end
 
   def build_data
-    { full_name: self.full_name, email: self.email }.to_json
+    { full_name: self.full_name, 
+      email: self.email,
+      payment_methods: self.payment_methods }.to_json
   end
 end

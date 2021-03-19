@@ -19,14 +19,15 @@ feature 'customer register' do
     get_resp_double = double('faraday_response', status: 200, body: resp_json)
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
-                                     .and_return(get_resp_double)
+                                   .and_return(get_resp_double)
     
     post_resp_double = double('faraday_response', status: 201, body: 'token_retornado')
 
     allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                          { full_name: 'Guilherme Marques',
-                                           email: 'guilherme@gmail.com' }.to_json,
-                                         "Content-Type" => "application/json")
+                                           email: 'guilherme@gmail.com',
+                                           payment_methods: 'Boleto' }.to_json,
+                                          "Content-Type" => "application/json")
                                     .and_return(post_resp_double)
     
     visit new_customer_registration_path
@@ -38,7 +39,7 @@ feature 'customer register' do
       fill_in 'Nome Completo', with: 'Guilherme Marques'
       fill_in 'CPF', with: '1234567-87'
       fill_in 'Idade', with: '40'
-      page.select 'Pix', from: 'Formas de Pagamento'
+      page.select 'Boleto', from: 'Formas de Pagamento'
 
       click_on 'Inscrever-se'
     end
@@ -51,6 +52,12 @@ feature 'customer register' do
   end
 
   scenario 'and should not allow empty fields' do
+    resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
+    get_resp_double = double('faraday_response', status: 200, body: resp_json)
+
+    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
+                                   .and_return(get_resp_double)
+    
     visit new_customer_registration_path
           
     within('form') do
@@ -60,11 +67,11 @@ feature 'customer register' do
       fill_in 'Nome Completo', with: ''
       fill_in 'CPF', with: ''
       fill_in 'Idade', with: ''
+      page.select 'Boleto', from: 'Formas de Pagamento'
 
       click_on 'Inscrever-se'
     end
     
-    expect(current_path).to eq customer_registration_path
     expect(page).to have_content('Nome Completo não pode ficar em branco')
     expect(page).to have_content('CPF não pode ficar em branco')
     expect(page).to have_content('Idade não pode ficar em branco')
