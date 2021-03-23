@@ -2,11 +2,17 @@ require 'rails_helper'
 
 feature 'customer register' do
   scenario 'from root_path' do
-    resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
-    resp_double = double('faraday_response', status: 200, body: resp_json)
+    payments_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
+    payments_double = double('faraday_response', status: 200, body: payments_json)
 
+    plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
+    plans_double = double('faraday_response', status: 200, body: plans_json )
+    
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
-                                     .and_return(resp_double)
+                                     .and_return(payments_double)
+
+    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
+                                   .and_return(plans_double)
     visit root_path
 
     click_on 'Alunos'
@@ -18,10 +24,16 @@ feature 'customer register' do
     resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
     get_resp_double = double('faraday_response', status: 200, body: resp_json)
 
+    plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
+    plans_double = double('faraday_response', status: 200, body: plans_json )
+
+    post_resp_double = double('faraday_response', status: 201, body: 'token_retornado')
+
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
                                    .and_return(get_resp_double)
-    
-    post_resp_double = double('faraday_response', status: 201, body: 'token_retornado')
+                                   
+    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
+                                   .and_return(plans_double)
 
     allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                          { full_name: 'Guilherme Marques',
