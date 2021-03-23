@@ -1,4 +1,4 @@
 [
-  { "name": "Plano Black", "price": "109,90" },
-  { "name": "Plano Smart", "price": "69,90" }
+  { "name": "Plano Black", "price": "109,90", "categories": ["Yoga", "FitDance", "Crossfit"], "num_classes_available": 30 },
+  { "name": "Plano Smart", "price": "69,90", "categories": ["Yoga", "FitDance"], "num_classes_available": 15  }
 ]

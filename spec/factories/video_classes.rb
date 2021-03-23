@@ -3,8 +3,8 @@ FactoryBot.define do
     name { 'MyString' }
     description { 'MyText' }
     video_url { 'MyString' }
-    start_at { '2021-03-16 18:08:04' }
-    end_at { '2021-03-16 18:08:04' }
+    start_at { '2021-04-16 18:08:04' }
+    end_at { '2021-04-16 18:58:04' }
 
     user
   end
