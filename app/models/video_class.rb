@@ -6,6 +6,7 @@ class VideoClass < ApplicationRecord
 
   private
 
+  # TODO: refatorar o nome do método
   def end_date_after_start_date?
     if !end_at.nil? && !start_at.nil?
       errors.add(:end_at, 'não pode ser anterior a data de início!') if end_at < start_at

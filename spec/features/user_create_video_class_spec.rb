@@ -13,6 +13,7 @@ feature 'User create new video class' do
     expect(current_path).to eq new_user_session_path
   end
 
+  # TODO: adicionar o campo categoria ao formulário
   scenario 'successfully' do
     user = create(:user)
 
