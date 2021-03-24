@@ -33,5 +33,21 @@ describe Plan do
       expect(plans.last.num_classes_available).to eq 15
       expect(plans.last.price).to eq '69,90'
     end
+
+    it 'should get customer plan' do
+      resp_json = File.read(Rails.root.join('spec/support/apis/customer_plan.json'))
+      resp_double = double('faraday_response', status: 200, body: resp_json )
+      token = '46465dssafd'
+
+      allow(Faraday).to receive(:get).with("smartflix.com.br/api/v1/plans/#{token}")
+                                     .and_return(resp_double)
+
+      plan = Plan.find_customer_plan(token)
+      
+      expect(plan.name).to eq 'Plano Smart'
+      expect(plan.categories).to eq [{ "name": "Yoga"}, { "name": "FitDance"}]
+      expect(plan.num_classes_available).to eq 15
+      expect(plan.price).to eq '69,90'
+    end
   end
 end

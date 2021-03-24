@@ -1,6 +1,6 @@
 class VideoClassesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
-  before_action :authenticate_user_or_candidate!, only: %i[show]
+  before_action :authenticate_user_or_customer!, only: %i[show]
 
   def new
     @video_class = VideoClass.new
@@ -20,6 +20,7 @@ class VideoClassesController < ApplicationController
 
   def show
     @video_class = VideoClass.find(params[:id])
+    return @plan = Plan.find_customer_plan(current_customer.token) if customer_signed_in?
   end
 
   private
@@ -29,5 +30,4 @@ class VideoClassesController < ApplicationController
                                       :video_url, :start_at,
                                       :end_at)
   end
-
 end

@@ -15,55 +15,45 @@ feature 'Customer views video class details' do
     customer = create(:customer)
     video_class = create(:video_class)
 
-    login_as customer
+    allow(Plan).to receive(:find_customer_plan).and_return([])
+
+    login_as customer, scope: :customer
 
     visit video_class_path(video_class)
 
     expect(page).to have_content video_class.name
     expect(page).to have_content video_class.description
     expect(page).to have_content video_class.user.name
+    expect(page).to have_content video_class.category
     expect(page).to have_content '18:08 - 18:58'
     expect(page).to have_content '16/04/2021'
-    #expect(page).to have_content video_class.video_url
     #Adicionar categoria
   end
 
-  scenario 'have link to attend the class' do
+  scenario 'must have plan' do
     customer = create(:customer)
     video_class = create(:video_class)
-
-    login_as customer
-
-    visit video_class_path(video_class)
-
-    expect(page).to have_link 'Participar da aula'
-  end
-
-  scenario 'must have plan and class available' do
-    customer = double(:customer, token:'46465dssafd')
-    video_class = double(:video_class, class_category_id:'2')
     customer_plan = Plan.new(name: 'Básico', price: '50', categories: [1,2], num_classes_available: 5)
- 
-    allow(Plan).to receive(:customer_plan).with('46465dssafd').and_return(customer_plan)
 
-    login_as customer
+    allow_any_instance_of(Customer).to receive(:token).and_return('46465dssafd')
+    allow(Plan).to receive(:find_customer_plan).with('46465dssafd').and_return(customer_plan)
+
+    login_as customer, scope: :customer
 
     visit video_class_path(video_class)
 
     expect(page).to have_link 'Participar da aula'
   end
 
-    #   scenario 'customer attends class' do
-    #   allow(Plan).to receive(:all).and_return([])
-    #   customer = create(:customer)
-    #   video_class = create(:video_class)
-  
-    #   login_as customer
-  
-    #   visit video_class_path(video_class)
-    #   click_on 'Participar da aula'
-  
-    #   #expect(page).to have_content ('Tem certeza que deseja participar?')
-    #   expect(current_path).to eq (video_class.video_url)
-    # end
+
+  # scenario 'have link to attend the class' do
+  #   customer = create(:customer)
+  #   video_class = create(:video_class)
+
+  #   login_as customer, scope: :customer
+
+  #   visit video_class_path(video_class)
+    
+  #   expect(page).to have_link 'Participar da aula'
+  # end
 end

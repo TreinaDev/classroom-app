@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name photo])
   end
 
-  def authenticate_user_or_candidate!
+  def authenticate_user_or_customer!
     return redirect_to root_path, notice: t("video_classes.messages.must_be_signed") unless user_signed_in? || customer_signed_in?
   end
 end
