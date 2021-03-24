@@ -18,4 +18,9 @@ class Plan
     end
     return plans
   end
+
+  def customer_plan(token:)
+    response = Faraday.get('smartflix.com.br/api/v1/plans/')
+    json_response = JSON.parse(response.body, symbolize_names: true)
+  end
 end

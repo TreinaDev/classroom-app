@@ -40,6 +40,17 @@ feature 'Customer views video class details' do
   end
 
   scenario 'must have plan and class available' do
+    customer = double(:customer, token:'46465dssafd')
+    video_class = double(:video_class, class_category_id:'2')
+    customer_plan = Plan.new(name: 'Básico', price: '50', categories: [1,2], num_classes_available: 5)
+ 
+    allow(Plan).to receive(:customer_plan).with('46465dssafd').and_return(customer_plan)
+
+    login_as customer
+
+    visit video_class_path(video_class)
+
+    expect(page).to have_link 'Participar da aula'
   end
 
     #   scenario 'customer attends class' do
@@ -55,5 +66,4 @@ feature 'Customer views video class details' do
     #   #expect(page).to have_content ('Tem certeza que deseja participar?')
     #   expect(current_path).to eq (video_class.video_url)
     # end
-  
 end
