@@ -7,7 +7,7 @@ feature 'customer register' do
 
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json )
-    
+
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
                                      .and_return(payments_double)
 
@@ -27,6 +27,9 @@ feature 'customer register' do
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json )
 
+    resp_customer_plans_json = File.read(Rails.root.join('spec/support/apis/get_user_plans.json'))
+    resp_customer_plans_double = double('faraday_response', status: 200, body: resp_customer_plans_json )
+
     post_resp_double = double('faraday_response', status: 201, body: 'token_retornado')
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
@@ -34,6 +37,9 @@ feature 'customer register' do
                                    
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
                                    .and_return(plans_double)
+
+    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/enrollment/a2w5q8y10ei/plans')
+                                   .and_return(resp_customer_plans_double)
 
     allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                          { full_name: 'Guilherme Marques',
@@ -55,7 +61,7 @@ feature 'customer register' do
 
       click_on 'Inscrever-se'
     end
-    
+
     expect(current_path).to eq root_path
     expect(Customer.last.email).to eq('guilherme@gmail.com')
     expect(Customer.last.full_name).to eq('Guilherme Marques')

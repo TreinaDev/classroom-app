@@ -1,4 +1,12 @@
 [
-  { "name": "Plano Black", "price": "109,90" },
-  { "name": "Plano Smart", "price": "69,90" }
+  {
+    "name": "Plano Black",
+    "price": "109,90",
+    "categories": []
+  },
+  {
+    "name": "Plano Smart",
+    "price": "69,90",
+    "categories": []
+  }
 ]

@@ -40,7 +40,7 @@ feature 'User create new video class' do
 
   scenario 'and see messages if errors' do
     user = create(:user)
-    
+
     login_as user, scope: :user
 
     visit user_path(user) 

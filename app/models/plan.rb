@@ -1,5 +1,5 @@
 class Plan
-  attr_reader :name, :price
+  attr_reader :name, :price, :categories
 
   def initialize(name:, price:, categories: nil)
     @name = name
@@ -11,11 +11,7 @@ class Plan
     response = Faraday.get('smartflix.com.br/api/v1/plans')
     json_response = JSON.parse(response.body, symbolize_names: true)
 
-    plans = []
-    json_response.each do |r|
-      plans << new(name: r[:name], price: r[:price])
-    end
-    return plans
+    json_response.map { |r| new(r) }
   end
 
   def self.find_by(token)

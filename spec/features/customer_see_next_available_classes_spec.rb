@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'customer sees next available classes' do
   scenario 'successfully' do
+    aluno = create(:customer)
+
     customer_plan = Plan.new(
       name: 'Plano Black',
       price: 109.90,
@@ -15,9 +17,8 @@ feature 'customer sees next available classes' do
       ]
     )
 
-    # TODO: pesquisar sobre como fazer o mock de um método não implementado
     allow(Plan).to receive(:find_by).with('a2w5q8y10ei')
-                                    .and_return(customer_plan)
+                                    .and_return([customer_plan])
 
     crossfit_teacher = create(:user,
                               email: 'crossfit@smartflix.com.br',
@@ -51,7 +52,6 @@ feature 'customer sees next available classes' do
            end_at: '28-03-2021 20:00:00',
            category: 'Bodybuilding')
 
-    aluno = create(:customer)
     login_as aluno, scope: :customer
 
     visit root_path

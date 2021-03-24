@@ -18,4 +18,9 @@ class Customer < ApplicationRecord
       email: self.email,
       payment_methods: self.payment_methods }.to_json
   end
+
+  # TODO: refatorar depois que adicionarem o token ao usuário
+  def token
+    'a2w5q8y10ei'
+  end
 end
