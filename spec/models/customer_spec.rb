@@ -17,9 +17,9 @@ describe Customer do
 
       allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                             data,
-                                            "Content-Type" => "application/json")
+                                            'Content-Type' => 'application/json')
                                       .and_return(resp_double)
-      
+
       response = customer.send_data_to_enrollments_api
 
       expect(response.body).to eq('token_retornado')
@@ -32,9 +32,9 @@ describe Customer do
 
       allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                             data,
-                                            "Content-Type" => "application/json")
+                                            'Content-Type' => 'application/json')
                                       .and_return(resp_double)
-      
+
       response = customer.send_data_to_enrollments_api
 
       expect(response).to eq(false)

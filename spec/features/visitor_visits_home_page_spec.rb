@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Visitor visits home page' do
   scenario 'And sees subscription plans options' do
     resp_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
-    resp_double = double('faraday_response', status: 200, body: resp_json )
+    resp_double = double('faraday_response', status: 200, body: resp_json)
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
                                    .and_return(resp_double)
