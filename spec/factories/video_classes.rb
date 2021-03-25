@@ -6,5 +6,6 @@ FactoryBot.define do
     user { 'MyString' }
     start_at { '2021-03-16 18:08:04' }
     end_at { '2021-03-16 18:08:04' }
+    category { 'MyString' }
   end
 end

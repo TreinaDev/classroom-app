@@ -39,8 +39,8 @@ describe Plan do
       expect(plans.first.name).to eq 'Plano Black'
       expect(plans.first.price).to eq '109,90'
       expect(plans.first.categories.length).to eq 2
-      expect(plans.first.categories.first.name).to eq 'Bodybuilding'
-      expect(plans.first.categories.last.name).to eq 'Crossfit'
+      expect(plans.first.categories.first[:name]).to eq 'Bodybuilding'
+      expect(plans.first.categories.last[:name]).to eq 'Crossfit'
     end
   end
 end

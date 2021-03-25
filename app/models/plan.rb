@@ -4,7 +4,7 @@ class Plan
   def initialize(name:, price:, categories: nil)
     @name = name
     @price = price
-    @categories |= categories
+    @categories ||= categories
   end
 
   def self.all
