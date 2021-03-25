@@ -26,7 +26,7 @@ feature 'User sign up' do
 
   scenario 'attributes cannot be blank' do
     allow(Plan).to receive(:all).and_return([])
-    
+
     visit root_path
     click_on 'Acesso Professor'
     click_on 'Registrar-se'

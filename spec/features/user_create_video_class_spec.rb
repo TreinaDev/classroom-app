@@ -43,7 +43,7 @@ feature 'User create new video class' do
 
     login_as user, scope: :user
 
-    visit user_path(user) 
+    visit user_path(user)
     click_on 'Adicionar Aula'
 
     within 'form' do
@@ -57,6 +57,6 @@ feature 'User create new video class' do
 
     expect(page).to have_content('Não foi possível criar o vídeo')
     expect(page).to have_content('Nome não pode ficar em branco')
-    expect(page).to have_content('Descrição não pode ficar em branco')    
+    expect(page).to have_content('Descrição não pode ficar em branco')
   end
 end
