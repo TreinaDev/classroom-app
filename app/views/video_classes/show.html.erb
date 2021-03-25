@@ -5,6 +5,8 @@
   <dd><%= @video_class.description %></dd>
   <dt><%= VideoClass.human_attribute_name("video_url") %></dt>
   <dd><%= @video_class.video_url  %></dd>
+  <dt><%= VideoClass.human_attribute_name("category") %></dt>
+  <dd><%= @video_class.category  %></dd>
   <dt><%= User.model_name.human %></dt>
   <dd><%= @video_class.user.name  %></dd>
   <dt><%= t('.schedule') %></dt>
@@ -15,7 +17,7 @@
   <dt><%= VideoClass.human_attribute_name("start_at") %></dt>
   <dd><%= I18n.localize(@video_class.start_at.to_date) %></dd>
   
-  <% if @plan.present? %>
+  <% if @plan.present? && @plan.categories.include?(@video_class.category) %>
     <%= link_to t('.attend_class') %>
   <% end %>
 
