@@ -11,7 +11,7 @@ class Customers::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  #POST /resource
+  # POST /resource
   def create
     super do
       @payments = Payment.all

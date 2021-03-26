@@ -8,13 +8,14 @@ class Customer < ApplicationRecord
 
   def send_data_to_enrollments_api
     url = 'smartflix.com.br/api/v1/enrollments'
-    response = Faraday.post(url, build_data, "Content-Type" => "application/json")
+    response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
     return response if response.status == 201
+
     false
   end
 
   def build_data
-    { full_name: self.full_name, 
+    { full_name: self.full_name,
       email: self.email,
       payment_methods: self.payment_methods }.to_json
   end

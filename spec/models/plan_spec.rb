@@ -13,7 +13,7 @@ describe Plan do
   context 'Fetch API data' do
     it 'should get all plans' do
       resp_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
-      resp_double = double('faraday_response', status: 200, body: resp_json )
+      resp_double = double('faraday_response', status: 200, body: resp_json)
 
       allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
                                      .and_return(resp_double)
