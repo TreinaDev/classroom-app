@@ -17,9 +17,10 @@ class Plan
 
     plans = []
     json_response.each do |r|
-      plans << new(name: r[:name], price: r[:price], categories: r[:categories], num_classes_available: r[:num_classes_available])
+      plans << new(name: r[:name], price: r[:price], categories: r[:categories],
+                   num_classes_available: r[:num_classes_available])
     end
-    return plans
+    plans
   end
 
   def self.find_customer_plan(token)
@@ -29,8 +30,8 @@ class Plan
 
     json_response = JSON.parse(response.body, symbolize_names: true)
     r = json_response.first
-      
-    plan = new(name: r[:name], price: r[:price], categories: r[:categories], num_classes_available: r[:num_classes_available])
+
+    new(name: r[:name], price: r[:price], categories: r[:categories], num_classes_available: r[:num_classes_available])
   end
 
   def watch_video_class?(video_class)
