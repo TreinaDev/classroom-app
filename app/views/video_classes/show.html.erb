@@ -1,12 +1,12 @@
 <h1>Lista de vídeos</h1>
 
 <h1><%= @video_class.name %></h1>
-  <dt>Descrição</dt>
-  <dd><%= @video_class.description %></dd>
-  <dt>Endereço</dt>
-  <dd><%= @video_class.video_url  %></dd>
-  <dt>Data de Início</dt>
-  <dd><%= I18n.localize(@video_class.start_at, format: :default) %></dd>
-  <dt>Data de final</dt>
-  <dd><%= I18n.localize(@video_class.end_at, format: :default) %></dd>
-  
+<dt>Descrição</dt>
+<dd><%= @video_class.description %></dd>
+<dt>Endereço</dt>
+<dd><%= @video_class.video_url  %></dd>
+<dt>Horário de início</dt>
+<dd><%= l(@video_class.start_at, format: :long) %></dd>
+<dt>Horário de fim</dt>
+<dd><%= l(@video_class.end_at, format: :long) %></dd>
+<dt>Categorias de aula</dt>

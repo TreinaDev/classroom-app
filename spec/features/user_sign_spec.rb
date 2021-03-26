@@ -9,7 +9,7 @@ feature 'User sign up' do
     click_on 'Registrar-se'
 
     within('form') do
-      fill_in 'Nome Completo', with: 'Milena Ferreira'
+      fill_in 'Nome', with: 'Milena Ferreira'
       attach_file 'Foto', Rails.root.join('spec', 'support', 'foto_professor.jpg')
       fill_in 'E-mail', with: 'milena@smartflix.com.br'
       fill_in 'Senha', with: '123456'
@@ -32,7 +32,7 @@ feature 'User sign up' do
     click_on 'Registrar-se'
 
     within('form') do
-      fill_in 'Nome Completo', with: ''
+      fill_in 'Nome', with: ''
       fill_in 'E-mail', with: ''
       fill_in 'Senha', with: ''
       fill_in 'Confirme sua senha', with: ''
@@ -40,7 +40,7 @@ feature 'User sign up' do
     end
 
     expect(page).to have_content 'Não foi possível salvar professor'
-    expect(page).to have_content 'Nome Completo não pode ficar em branco'
+    expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'E-mail não pode ficar em branco'
     expect(page).to have_content 'Senha não pode ficar em branco'
   end
@@ -53,7 +53,7 @@ feature 'User sign up' do
     click_on 'Registrar-se'
 
     within('form') do
-      fill_in 'Nome Completo', with: 'Milena Ferreira'
+      fill_in 'Nome', with: 'Milena Ferreira'
       fill_in 'E-mail', with: 'milena@mail.com.br'
       fill_in 'Senha', with: '123456'
       fill_in 'Confirme sua senha', with: '123456'
@@ -61,7 +61,7 @@ feature 'User sign up' do
     end
 
     expect(page).to have_content 'Não foi possível salvar professor'
-    expect(page).to have_content 'Email precisa ser da empresa SmartFlix'
+    expect(page).to have_content 'E-mail precisa ser da empresa SmartFlix'
   end
 end
 

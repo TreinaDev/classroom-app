@@ -2,6 +2,7 @@ class VideoClassesController < ApplicationController
   before_action :authenticate_user!
 
   def new
+    @categories = Category.all.map(&:name)
     @video_class = VideoClass.new
   end
 
@@ -13,6 +14,7 @@ class VideoClassesController < ApplicationController
     if @video_class.save
       redirect_to @video_class
     else
+      @categories = Category.all.map(&:name)
       render 'new'
     end
   end
@@ -26,7 +28,7 @@ class VideoClassesController < ApplicationController
   def video_class_params
     params.require(:video_class).permit(:name, :description,
                                       :video_url, :start_at,
-                                      :end_at)
+                                      :end_at, :category)
   end
 
 end
