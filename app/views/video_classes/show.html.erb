@@ -17,7 +17,7 @@
   <dt><%= VideoClass.human_attribute_name("start_at") %></dt>
   <dd><%= I18n.localize(@video_class.start_at.to_date) %></dd>
   
-  <% if @plan.present? && @plan.categories.include?(@video_class.category) %>
+  <% if @plan&.watch_video_class?(@video_class) %>
     <%= link_to t('.attend_class') %>
   <% end %>
 

@@ -15,7 +15,7 @@ feature 'Customer views video class details' do
     customer = create(:customer, token: '46465dssafd')
     video_class = create(:video_class, start_at: '2021-04-16 18:08:04', end_at: '2021-04-16 18:58:04', category: 'Musculação')
 
-    allow(Plan).to receive(:find_customer_plan).with('46465dssafd').and_return([])
+    allow(Plan).to receive(:find_customer_plan).with('46465dssafd').and_return(nil)
 
     login_as customer, scope: :customer
 
@@ -61,7 +61,7 @@ feature 'Customer views video class details' do
     customer = create(:customer, token: '46465dssafd')
     video_class = create(:video_class, category: 'Crossfit')
 
-    allow(Plan).to receive(:find_customer_plan).with('46465dssafd').and_return('')
+    allow(Plan).to receive(:find_customer_plan).with('46465dssafd').and_return(nil)
     
     login_as customer, scope: :customer
 

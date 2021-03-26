@@ -25,11 +25,15 @@ class Plan
   def self.find_customer_plan(token)
     response = Faraday.get("smartflix.com.br/api/v1/plans/#{token}")
 
-    return [] if response.status != 200
+    return nil if response.status != 200
 
     json_response = JSON.parse(response.body, symbolize_names: true)
     r = json_response.first
       
     plan = new(name: r[:name], price: r[:price], categories: r[:categories], num_classes_available: r[:num_classes_available])
+  end
+
+  def watch_video_class?(video_class)
+    categories.include?(video_class.category)
   end
 end
