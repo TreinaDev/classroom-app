@@ -10,6 +10,9 @@ class Plan
 
   def self.all
     response = Faraday.get('smartflix.com.br/api/v1/plans')
+
+    return [] if response.status != 200
+
     json_response = JSON.parse(response.body, symbolize_names: true)
 
     plans = []
@@ -21,6 +24,8 @@ class Plan
 
   def self.find_customer_plan(token)
     response = Faraday.get("smartflix.com.br/api/v1/plans/#{token}")
+
+    return [] if response.status != 200
 
     json_response = JSON.parse(response.body, symbolize_names: true)
     r = json_response.first

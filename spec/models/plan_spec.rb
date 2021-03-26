@@ -13,7 +13,7 @@ describe Plan do
     end
   end
 
-  context 'Fetch API data' do
+  context 'Fetch API data to get plans' do
     it 'should get all plans' do
       resp_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
       resp_double = double('faraday_response', status: 200, body: resp_json )
@@ -34,20 +34,45 @@ describe Plan do
       expect(plans.last.price).to eq '69,90'
     end
 
+    it 'should return empty if not authorized' do
+      resp_double = double('faraday_response', status: 401, body: '')
+
+      allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
+                                     .and_return(resp_double)
+                                
+      plans = Plan.all
+
+      expect(plans.length).to eq 0
+    end
+  end
+
+  context 'Fetch API data to get customer plan' do
     it 'should get customer plan' do
       resp_json = File.read(Rails.root.join('spec/support/apis/customer_plan.json'))
       resp_double = double('faraday_response', status: 200, body: resp_json )
-      token = '46465dssafd'
+      customer = create(:customer, token: '46465dssafd')
 
-      allow(Faraday).to receive(:get).with("smartflix.com.br/api/v1/plans/#{token}")
+      allow(Faraday).to receive(:get).with("smartflix.com.br/api/v1/plans/#{customer.token}")
                                      .and_return(resp_double)
 
-      plan = Plan.find_customer_plan(token)
+      plan = Plan.find_customer_plan(customer.token)
       
       expect(plan.name).to eq 'Plano Smart'
       expect(plan.categories).to eq [{ "name": "Yoga"}, { "name": "FitDance"}]
       expect(plan.num_classes_available).to eq 15
       expect(plan.price).to eq '69,90'
+    end
+
+    it 'should return empty if not authorized' do
+      resp_double = double('faraday_response', status: 401, body: '')
+      customer = create(:customer, token: '46465dssafd')
+
+      allow(Faraday).to receive(:get).with("smartflix.com.br/api/v1/plans/#{customer.token}")
+                                     .and_return(resp_double)
+                                
+      plan = Plan.find_customer_plan(customer.token)
+
+      expect(plan.empty?).to eq true
     end
   end
 end

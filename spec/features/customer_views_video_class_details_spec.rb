@@ -12,10 +12,10 @@ feature 'Customer views video class details' do
   end
 
   scenario 'successfully' do
-    customer = create(:customer)
-    video_class = create(:video_class, category: 'Musculação')
+    customer = create(:customer, token: '46465dssafd')
+    video_class = create(:video_class, start_at: '2021-04-16 18:08:04', end_at: '2021-04-16 18:58:04', category: 'Musculação')
 
-    allow(Plan).to receive(:find_customer_plan).and_return([])
+    allow(Plan).to receive(:find_customer_plan).with('46465dssafd').and_return([])
 
     login_as customer, scope: :customer
 
@@ -69,15 +69,4 @@ feature 'Customer views video class details' do
 
     expect(page).not_to have_link 'Participar da aula'
   end
-
-  # scenario 'have link to attend the class' do
-  #   customer = create(:customer)
-  #   video_class = create(:video_class)
-
-  #   login_as customer, scope: :customer
-
-  #   visit video_class_path(video_class)
-    
-  #   expect(page).to have_link 'Participar da aula'
-  # end
 end
