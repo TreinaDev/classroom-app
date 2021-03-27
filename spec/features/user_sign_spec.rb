@@ -10,7 +10,7 @@ feature 'User sign up' do
 
     within('form') do
       fill_in 'Nome', with: 'Milena Ferreira'
-      attach_file 'Foto', Rails.root.join('spec', 'support', 'foto_professor.jpg')
+      attach_file 'Foto', Rails.root.join('spec/support/foto_professor.jpg')
       fill_in 'E-mail', with: 'milena@smartflix.com.br'
       fill_in 'Senha', with: '123456'
       fill_in 'Confirme sua senha', with: '123456'
