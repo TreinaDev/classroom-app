@@ -10,14 +10,14 @@ RSpec.describe VideoClass, type: :model do
   it { should belong_to(:user) }
 
   it 'end date cannot be after start date' do
-    video_class = VideoClass.new(end_at: '17-03-2021 20:00:00', start_at: '27-03-2021 20:00:00')
+    video_class = VideoClass.new(end_at: '17-03-2021 19:59:59', start_at: '17-03-2021 20:00:00')
     video_class.valid?
-    expect(video_class.errors[:end_at]).to include('não pode ser anterior a data de início!')
+    expect(video_class.errors[:end_at]).to include('não pode ser anterior a horário de início!')
   end
 
   it 'end date be after start date' do
-    video_class = VideoClass.new(end_at: '27-03-2021 20:00:00', start_at: '17-03-2021 20:00:00')
+    video_class = VideoClass.new(end_at: '17-03-2021 21:30:00', start_at: '17-03-2021 20:00:00')
     video_class.valid?
-    expect(video_class.errors[:end_at]).not_to include('não pode ser anterior a data de início!')
+    expect(video_class.errors[:end_at]).not_to include('não pode ser anterior a horário de início!')
   end
 end
