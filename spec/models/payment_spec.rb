@@ -16,7 +16,7 @@ describe Payment do
 
       allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
                                      .and_return(resp_double)
-      
+
       payments = Payment.all
 
       expect(payments.length).to eq(3)
@@ -30,7 +30,7 @@ describe Payment do
 
       allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
                                      .and_return(resp_double)
-      
+
       payments = Payment.all
 
       expect(payments.empty?).to eq(true)
@@ -41,7 +41,7 @@ describe Payment do
 
       allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
                                      .and_return(resp_double)
-      
+
       payments = Payment.all
 
       expect(payments.empty?).to eq(true)

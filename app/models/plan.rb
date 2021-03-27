@@ -14,6 +14,6 @@ class Plan
     json_response.each do |r|
       plans << new(name: r[:name], price: r[:price])
     end
-    return plans
+    plans
   end
 end

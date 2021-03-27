@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :video_classes
+  has_many :video_classes, dependent: :destroy
 
   has_one_attached :photo
 
