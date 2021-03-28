@@ -1,0 +1,14 @@
+<h1>Minha conta</h1>
+
+<% current_user.video_classes.each do |video_class| %>
+  <dt><%= VideoClass.human_attribute_name("name") %></dt>
+  <dd><%= link_to video_class.name, video_class_path(video_class) %></dd>
+  <dt><%= VideoClass.human_attribute_name("description") %></dt>
+  <dd><%= video_class.description %></dd>
+  <dt><%= VideoClass.human_attribute_name("category") %></dt>
+  <dd><%= video_class.category  %></dd>
+  <%= link_to 'Editar', edit_video_class_path(video_class) %>
+  <%= link_to 'Apagar aula', video_class_path(video_class), method: :delete %>
+<% end %>
+
+<%= link_to 'Cadastrar aula', new_video_class_path %>
