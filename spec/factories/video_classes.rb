@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :video_class do
-    name { 'MyString' }
-    description { 'MyText' }
-    video_url { 'MyString' }
-    user { 'MyString' }
-    start_at { '2021-03-16 18:08:04' }
-    end_at { '2021-03-16 18:08:04' }
+    name { 'Definir abdômen' }
+    description { 'Aula voltada para o fortalecimento muscular do abdômen' }
+    video_url { 'smartflix.com.br/definir_abdomen' }
+    start_at { '2021-04-16 18:08:04' }
+    end_at { '2021-04-16 18:58:04' }
+
+    user
   end
 end

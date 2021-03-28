@@ -1,0 +1,6 @@
+pt-BR:
+  video_classes:
+    show:
+      video_list: 'Lista de vídeos'
+      schedule: 'Horário'
+      attend_class: 'Participar da aula'
