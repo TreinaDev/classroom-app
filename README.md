@@ -77,23 +77,55 @@ Com os atributos **id** e **name** sendo utilizados na lógica do projeto Sistem
 endpoint: `` POST http://localhost:4000/api/v1/customers `` contendo informações no *body*
 
 ```JSON
-  { 
+  {
     "id": 1, 
     "full_name": "Arnaldo Jabor", 
-    "birth_date": "1981-03-25,
+    "birth_date": "1981-03-25",
     "cpf": "31913099945",
     "email": "arnaldo@gmail.com",
     "payment_methods": 2
   }
 ```
 
+Obtendo como resposta o atributo *token* retornado
+
 ## Rodando o projeto
 
+No terminal clone o projeto
+
+```
+git clone git@github.com:TreinaDev/classroom-app.git
+```
+
+Abra o diretório pelo terminal
+
+```bash
+cd  classroom-app
+```
+
+Rode o script bin setup para configurar o projeto
+
+```bash
+bin/setup
+```
+
+Para inicializar o servidor:
+
+```bash
+rails s
+```
+
+## Alimentando o banco
+
+:warning: Implementar arquivo seeds.rb
+
 ## Desenvolvedores (ordem alfabética)
+
 - https://github.com/carlos-arduino
 - https://github.com/Guilherme4857
 - https://github.com/gvicencotti
 - https://github.com/JuliaJubileu
 - https://github.com/matheusma37
 - https://github.com/MilenaF-dev
+
 **Falta colocar do Rafael Oliveira**
