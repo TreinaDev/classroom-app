@@ -15,6 +15,9 @@ feature 'User create new video class' do
 
   scenario 'successfully' do
     user = create(:user)
+    categories = [Category.new(name: 'Zumba'), Category.new(name: 'Yoga')]
+
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 
@@ -27,6 +30,7 @@ feature 'User create new video class' do
       fill_in 'Endereço URL', with: 'http://www.smartflix.com.br/aula/aula-yoga'
       fill_in 'Data de início', with: '17-03-2021 20:00:00'
       fill_in 'Data de fim', with: '27-03-2021 20:00:00'
+      page.select 'Yoga', from: 'Categoria'
       click_on 'Criar aula'
     end
 
@@ -39,6 +43,9 @@ feature 'User create new video class' do
 
   scenario 'and see messages if errors' do
     user = create(:user)
+    categories = [Category.new(name: 'Zumba'), Category.new(name: 'Yoga')]
+
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 
@@ -74,7 +81,10 @@ feature 'User edit video class' do
 
   scenario 'successfully' do
     user = create(:user)
+    categories = [Category.new(name: 'Zumba'), Category.new(name: 'Yoga')]
     video_class = create(:video_class, user: user)
+
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 
@@ -87,6 +97,7 @@ feature 'User edit video class' do
       fill_in 'Endereço URL', with: 'http://www.smartflix.com.br/aula/aula-yoga'
       fill_in 'Data de início', with: '17-03-2021 20:00:00'
       fill_in 'Data de fim', with: '27-03-2021 20:00:00'
+      page.select 'Yoga', from: 'Categoria'
       click_on 'Editar aula'
     end
 
@@ -98,7 +109,10 @@ feature 'User edit video class' do
 
   scenario 'and see messages if errors' do
     user = create(:user)
+    categories = [Category.new(name: 'Zumba'), Category.new(name: 'Yoga')]
     create(:video_class, user: user)
+
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 

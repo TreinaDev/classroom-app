@@ -19,23 +19,32 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
+
   <div>
     <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
+
   <div>
     <%= f.label :video_url %>
     <%= f.url_field :video_url %>
   </div>
+
   <div>
     <%= f.label :start_at %>
     <%= f.datetime_local_field :start_at %>
   </div>
+
   <div>
     <%= f.label :end_at %>
     <%= f.datetime_local_field :end_at %>
   </div>
  
+  <div>
+    <%= f.label :category %><br>
+    <%= f.select :category, @categories %>
+  </div>
+
   <% if @video_class.persisted? %>
     <%= f.submit 'Editar aula' %>
   <% else %>

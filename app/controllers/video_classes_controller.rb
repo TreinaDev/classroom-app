@@ -3,6 +3,7 @@ class VideoClassesController < ApplicationController
   before_action :authenticate_user_or_customer!, only: %i[show]
 
   def new
+    @categories = Category.all.map(&:name)
     @video_class = VideoClass.new
   end
 
@@ -14,6 +15,7 @@ class VideoClassesController < ApplicationController
     if @video_class.save
       redirect_to @video_class
     else
+      @categories = Category.all.map(&:name)
       render 'new'
     end
   end
@@ -24,6 +26,7 @@ class VideoClassesController < ApplicationController
   end
 
   def edit
+    @categories = Category.all.map(&:name)
     set_video_class
   end
 
@@ -33,6 +36,7 @@ class VideoClassesController < ApplicationController
     if @video_class.update(video_class_params)
       redirect_to video_class_path(@video_class)
     else
+      @categories = Category.all.map(&:name)
       render :edit
     end
   end
