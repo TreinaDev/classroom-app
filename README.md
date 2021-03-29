@@ -35,9 +35,42 @@ Responsável pelo gerenciamento das aulas na plataforma **SmartFlix** com atribu
 - [Simplecov (0.21.2) ]
 
 ## Integrações com outros sistemas
+
 ### Consumo de API exposta pelo sistema PAGAMENTOS/FRAUDES
 
+Obtenção da lista dos meios de pagamentos disponíveis aos alunos:
+`` GET http://localhost:5000/api/v1/payment_methods `` 
+
+Exemplo de retorno com status 200: sucesso 
+*Amostra retirada do arquivo README.md projeto PAYMENT-FRAUD*
+
+```JSON
+[
+  { 
+    "id": 1, 
+    "name": "Cartão de crédito", 
+    "created_at": "2021-03-25 20:47:39.461725000 -0300", 
+    "updated_at": "2021-03-25 20:47:39.461725000 -0300", 
+    "max_installments": 4, 
+    "code": "CRT CREDIT", 
+    "status": "active" 
+  },
+  { 
+    "id": 2, 
+    "name": "Boleto", 
+    "created_at": "2021-03-25 20:47:39.461725000 -0300", 
+    "updated_at": "2021-03-25 20:47:39.461725000 -0300", 
+    "max_installments": 1, 
+    "code": "BOLET", 
+    "status": "active" 
+  }
+]
+```
+Com os atributos **id** e **name** sendo utilizados na lógica do projeto Sistema de Aulas.
+
 ### Consumo de API exposta pelo sistema MATRICULAS/PLANOS
+
+
 
 ### Persistência do resgistro de alunos em base externa MATRICULAS/PLANOS
 
