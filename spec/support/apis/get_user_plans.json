@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Plano Black",
     "price": "109,90",
     "categories": [
@@ -9,6 +10,7 @@
       {
         "name": "Crossfit"
       }
-    ]
+    ],
+    "num_classes_available": 15
   }
 ]

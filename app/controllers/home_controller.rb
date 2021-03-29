@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     if customer_signed_in?
-      @plans = Plan.find_by(current_customer.token)
+      @plans = Plan.find_customer_plans(current_customer.token)
 
       categories = @plans.map { |plan| plan.categories.pluck(:name) }
                          .flatten

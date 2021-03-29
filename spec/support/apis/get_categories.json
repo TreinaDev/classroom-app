@@ -1,11 +1,14 @@
 [
   {
+    "id": 1,
     "name": "Crossfit"
   },
   {
+    "id": 2,
     "name": "Bodybuilding"
   },
   {
+    "id": 3,
     "name": "Zumba"
   }
 ]

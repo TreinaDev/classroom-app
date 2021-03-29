@@ -1,8 +1,9 @@
 class VideoClassesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_user_or_customer!, only: %i[show]
 
   def new
-    @categories = Category.all.map(&:name)
+    @categories = Category.all
     @video_class = VideoClass.new
   end
 
@@ -14,13 +15,16 @@ class VideoClassesController < ApplicationController
     if @video_class.save
       redirect_to @video_class
     else
-      @categories = Category.all.map(&:name)
+      @categories = Category.all
       render 'new'
     end
   end
 
   def show
     @video_class = VideoClass.find(params[:id])
+    return [] unless customer_signed_in?
+
+    @plans = Plan.find_customer_plans(current_customer.token)
   end
 
   private

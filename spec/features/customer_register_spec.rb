@@ -30,7 +30,7 @@ feature 'customer register' do
     resp_customer_plans_json = File.read(Rails.root.join('spec/support/apis/get_user_plans.json'))
     resp_customer_plans_double = double('faraday_response', status: 200, body: resp_customer_plans_json)
 
-    post_resp_double = double('faraday_response', status: 201, body: 'token_retornado')
+    post_resp_double = double('faraday_response', status: 201, body: 'a2w5q8y10ei')
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
                                    .and_return(get_resp_double)

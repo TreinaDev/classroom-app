@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Plan do
   context 'PORO' do
     it 'should initialize a new category' do
-      category = Category.new(name: 'Crossfit')
+      category = Category.new(id: 1, name: 'Crossfit')
 
       expect(category.name).to eq('Crossfit')
     end

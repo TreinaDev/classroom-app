@@ -36,7 +36,9 @@
 
   <div>
     <%= f.label :category %><br>
-    <%= f.select :category, @categories %>
+    <%= f.collection_select :category,
+                 @categories, :name, :name, 
+                 prompt: '--select--' %>
   </div>
 
   <%= f.submit 'Criar vídeo' %>
