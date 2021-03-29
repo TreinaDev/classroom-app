@@ -5,10 +5,15 @@ Responsável pelo gerenciamento das aulas na plataforma **SmartFlix** com atribu
 ## Principais Features
 
 [ ] Visitante visualiza lista com todas aulas cadastradas
+
 [ ] Cadastro de Aluno
+
 [ ] Cadastro de Professor
+
 [ ] Professor cadastra aula vinculada há uma categoria
+
 [ ] Aluno assiste aulas com limites estabelecidos de acordo com regra de negócio do plano contrado
+
 
 ## Requisitos
 
