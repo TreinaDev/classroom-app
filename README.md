@@ -135,5 +135,5 @@ rails s
 - https://github.com/JuliaJubileu
 - https://github.com/matheusma37
 - https://github.com/MilenaF-dev
+- https://github.com/rafelluiz
 
-**Falta colocar do Rafael Oliveira**
