@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      video_class:
+        one: Vídeo Aula
+        other: Vídeo Aulas
+    attributes:
+      video_class:
+        name: Nome
+        description: Descrição
+        video_url: Endereço URL da Aula
+        start_at: Data de Início
+        end_at: Data de Fim
+        category: Categoria

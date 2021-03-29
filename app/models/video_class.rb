@@ -1,7 +1,8 @@
 class VideoClass < ApplicationRecord
   belongs_to :user
 
-  validates :name, :description, :start_at, :end_at, :video_url, presence: true
+  validates :name, :description, :start_at, :end_at,
+            :video_url, :category, presence: true
   validate :end_date_before_start_date
 
   private

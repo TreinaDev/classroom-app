@@ -5,13 +5,15 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :full_name, :cpf, :age, presence: true
+  validates :token, presence: true, on: :update
 
   def send_data_to_enrollments_api
     url = 'smartflix.com.br/api/v1/enrollments'
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
-    return response if response.status == 201
+    return false if response.status == 401
 
-    false
+    update(token: response.body)
+    return response if response.status == 201
   end
 
   def build_data
