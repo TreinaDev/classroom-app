@@ -1,0 +1,3 @@
+[
+  { "id": 2, "name": "Plano Smart", "price": "69,90", "categories": [{ "id": 1, "name": "Yoga" }, { "id": 2, "name": "FitDance" }], "num_classes_available": 15  }
+]

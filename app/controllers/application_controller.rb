@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
       super # Use the default one
     end
   end
+
+  def authenticate_user_or_customer!
+    return if user_signed_in? || customer_signed_in?
+
+    redirect_to root_path, notice: t('video_classes.messages.must_be_signed')
+  end
 end

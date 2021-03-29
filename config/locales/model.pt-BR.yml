@@ -16,4 +16,5 @@ pt-BR:
           description: Descrição
           video_url: Endereço URL
           start_at: Data de início
-          end_at: Data de fim 
+          end_at: Data de fim
+          category: Categoria 
