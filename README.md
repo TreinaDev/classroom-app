@@ -1,24 +1,40 @@
-# README
+## Sistema de Aulas - Breve Descrição
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Responsável pelo gerenciamento das aulas na plataforma **SmartFlix** com atribuições dedicadas ao cadastro dos Alunos, Professores e Aulas. É a primeira camada de contato entre visitante ou cliente (aluno) com o objetivo principal de oferecer serviço de streaming de aulas com limitações de acesso em função do plano adquirido.
 
-Things you may want to cover:
+## Principais Features
 
-* Ruby version
+[ ] Visitante visualiza lista com todas aulas cadastradas
+[ ] Cadastro de Aluno
+[ ] Cadastro de Professor
+[ ] Professor cadastra aula vinculada há uma categoria
+[ ] Aluno assiste aulas com limites estabelecidos de acordo com regra de negócio do plano contrado
 
-* System dependencies
+## Requisitos
 
-* Configuration
+- [Ruby 2.7.2]
+- [Rails 6.1.3]
+- [NodeJS]
+- [Yarn]
 
-* Database creation
+### Gems utilizadas
 
-* Database initialization
+- [Sqlite3 (1.4) ]
+- [devise (4.7.3) ]
+- [FactoryBots Rails (6.1.0) ]
+- [Faraday (1.3.0) ]
+- [Rspec (3.10.1) ]
+- [Capibara (3.35.3) ]
+- [Shoulda-matchers (4.5.1) ]
+- [Rubocop-rails (2.9.1) ]
+- [Simplecov (0.21.2) ]
 
-* How to run the test suite
+## Integrações com outros sistemas
+### Consumo de API exposta pelo sistema PAGAMENTOS/FRAUDES
 
-* Services (job queues, cache servers, search engines, etc.)
+### Consumo de API exposta pelo sistema MATRICULAS/PLANOS
 
-* Deployment instructions
+### Persistência do resgistro de alunos em base externa MATRICULAS/PLANOS
 
-* ...
+## Rodando o projeto
+
