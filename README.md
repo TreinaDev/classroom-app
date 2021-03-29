@@ -39,9 +39,10 @@ Responsável pelo gerenciamento das aulas na plataforma **SmartFlix** com atribu
 ### Consumo de API exposta pelo sistema PAGAMENTOS/FRAUDES
 
 Obtenção da lista dos meios de pagamentos disponíveis aos alunos:
-`` GET http://localhost:5000/api/v1/payment_methods `` 
+endpoint: `` GET http://localhost:5000/api/v1/payment_methods `` 
 
-Exemplo de retorno com status 200: sucesso 
+Exemplo de retorno com status 200: sucesso
+
 *Amostra retirada do arquivo README.md projeto PAYMENT-FRAUD*
 
 ```JSON
@@ -70,9 +71,29 @@ Com os atributos **id** e **name** sendo utilizados na lógica do projeto Sistem
 
 ### Consumo de API exposta pelo sistema MATRICULAS/PLANOS
 
-
+:warning: endpoint: ``GET ??????`` para consultar planos do aluno e categorias de aulas liberadas
 
 ### Persistência do resgistro de alunos em base externa MATRICULAS/PLANOS
+endpoint: `` POST http://localhost:4000/api/v1/customers `` contendo informações no *body*
+
+```JSON
+  { 
+    "id": 1, 
+    "full_name": "Arnaldo Jabor", 
+    "birth_date": "1981-03-25,
+    "cpf": "31913099945",
+    "email": "arnaldo@gmail.com",
+    "payment_methods": 2
+  }
+```
 
 ## Rodando o projeto
 
+## Desenvolvedores (ordem alfabética)
+- https://github.com/carlos-arduino
+- https://github.com/Guilherme4857
+- https://github.com/gvicencotti
+- https://github.com/JuliaJubileu
+- https://github.com/matheusma37
+- https://github.com/MilenaF-dev
+**Falta colocar do Rafael Oliveira**
