@@ -39,6 +39,7 @@ Responsável pelo gerenciamento das aulas na plataforma **SmartFlix** com atribu
 ### Consumo de API exposta pelo sistema PAGAMENTOS/FRAUDES
 
 Obtenção da lista dos meios de pagamentos disponíveis aos alunos:
+
 endpoint: `` GET http://localhost:5000/api/v1/payment_methods `` 
 
 Exemplo de retorno com status 200: sucesso
@@ -74,6 +75,7 @@ Com os atributos **id** e **name** sendo utilizados na lógica do projeto Sistem
 :warning: endpoint: ``GET ??????`` para consultar planos do aluno e categorias de aulas liberadas
 
 ### Persistência do resgistro de alunos em base externa MATRICULAS/PLANOS
+
 endpoint: `` POST http://localhost:4000/api/v1/customers `` contendo informações no *body*
 
 ```JSON
@@ -88,6 +90,12 @@ endpoint: `` POST http://localhost:4000/api/v1/customers `` contendo informaçõ
 ```
 
 Obtendo como resposta o atributo *token* retornado
+
+```JSON
+  {
+    "token": "M4t"
+  }
+```
 
 ## Rodando o projeto
 
