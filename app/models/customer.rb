@@ -18,7 +18,7 @@ class Customer < ApplicationRecord
     { full_name: self.full_name,
       email: self.email,
       cpf: self.cpf,
-      birth_date: self.birth_date
+      birth_date: self.birth_date,
       payment_methods: self.payment_methods }.to_json
   end
 
