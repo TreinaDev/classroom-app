@@ -2,15 +2,15 @@ pt-BR:
   activerecord:
     models:
       customer:
-        one: 'Cliente'
-        other: 'Clientes'
+        one: Cliente
+        other: Clientes
     attributes:
       customer:
-        email: 'E-mail'
-        password: 'Senha'
-        password_confirmation: 'Confirmar Senha'
-        full_name: 'Nome Completo'
-        cpf: 'CPF'
-        payment_methods: 'Formas de Pagamento'
-        age: 'Idade'
-        profile_picture: 'Foto de perfil'
+        email: E-mail
+        password: Senha
+        password_confirmation: Confirmar Senha
+        full_name: Nome Completo
+        cpf: CPF
+        payment_methods: Formas de Pagamento
+        age: Idade
+        profile_picture: Foto de Perfil

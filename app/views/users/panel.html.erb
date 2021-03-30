@@ -8,7 +8,8 @@
   <dt><%= VideoClass.human_attribute_name("category") %></dt>
   <dd><%= video_class.category  %></dd>
   <%= link_to 'Editar', edit_video_class_path(video_class) %>
-  <%= link_to 'Apagar aula', video_class_path(video_class), method: :delete %>
+  <%= link_to 'Apagar aula', video_class_path(video_class), method: :delete,
+                                                            data: { confirm: "Tem certeza?" }  %>
 <% end %>
 
 <%= link_to 'Cadastrar aula', new_video_class_path %>
