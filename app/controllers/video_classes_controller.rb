@@ -47,7 +47,7 @@ class VideoClassesController < ApplicationController
 
   def watch
     set_video_class
-
+    @play = true
     @watched_class = WatchedClass.create(video_class: @video_class, customer: current_customer)
 
     redirect_to video_class_path(@video_class)
