@@ -45,6 +45,14 @@ class VideoClassesController < ApplicationController
     redirect_to user_root_path(current_user)
   end
 
+  def watch
+    set_video_class
+
+    @watched_class = WatchedClass.create(video_class: @video_class, customer: current_customer)
+
+    redirect_to video_class_path(@video_class)
+  end
+
   private
 
   def set_video_class

@@ -18,7 +18,7 @@
   <dd><%= I18n.localize(@video_class.start_at.to_date) %></dd>
   
   <% if @plan&.watch_video_class?(@video_class) %>
-    <%= link_to t('.attend_class') %>
+    <%= link_to t('.attend_class'), watch_video_class_path(@video_class), method: :post %>
   <% end %>
 
 

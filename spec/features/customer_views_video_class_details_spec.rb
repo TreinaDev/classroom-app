@@ -71,3 +71,21 @@ feature 'Customer views video class details' do
     expect(page).not_to have_link 'Participar da aula'
   end
 end
+
+feature 'Customer watches video class' do
+  scenario 'successfully' do
+    customer = create(:customer, token: '46465dssafd')
+    video_class = create(:video_class, category: 'Yoga')
+    customer_plan = Plan.new(name: 'Básico', price: '50', categories: %w[Yoga FitDance], num_classes_available: 5)
+
+    allow(Plan).to receive(:find_customer_plan).with('46465dssafd').and_return(customer_plan)
+
+    login_as customer, scope: :customer
+
+    visit video_class_path(video_class)
+    click_on 'Participar da aula'
+
+    expect(current_path).to eq video_class_path(video_class)
+    expect(customer.watched_classes.length).to eq 1
+  end
+end

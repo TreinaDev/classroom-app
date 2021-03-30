@@ -1,6 +1,9 @@
 class VideoClass < ApplicationRecord
   belongs_to :user
 
+  has_many :watched_classes
+  has_many :customers, through: :watched_classes
+
   validates :name, :description, :start_at, :end_at, :video_url, presence: true
   validate :end_date_before_start_date
 
