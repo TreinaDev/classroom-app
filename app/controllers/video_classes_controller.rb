@@ -3,6 +3,7 @@ class VideoClassesController < ApplicationController
   before_action :authenticate_user_or_customer!, only: %i[show]
 
   def new
+    @categories = Category.all
     @video_class = VideoClass.new
   end
 
@@ -14,16 +15,20 @@ class VideoClassesController < ApplicationController
     if @video_class.save
       redirect_to @video_class
     else
+      @categories = Category.all
       render 'new'
     end
   end
 
   def show
     set_video_class
-    return @plan = Plan.find_customer_plan(current_customer.token) if customer_signed_in?
+    return [] unless customer_signed_in?
+
+    @plans = Plan.find_customer_plans(current_customer.token)
   end
 
   def edit
+    @categories = Category.all
     set_video_class
   end
 
@@ -33,6 +38,7 @@ class VideoClassesController < ApplicationController
     if @video_class.update(video_class_params)
       redirect_to video_class_path(@video_class)
     else
+      @categories = Category.all
       render :edit
     end
   end
@@ -48,6 +54,7 @@ class VideoClassesController < ApplicationController
   def watch
     set_video_class
 
+    @play = true
     @watched_class = WatchedClass.create(video_class: @video_class, customer: current_customer)
 
     redirect_to video_class_path(@video_class)
@@ -62,6 +69,6 @@ class VideoClassesController < ApplicationController
   def video_class_params
     params.require(:video_class).permit(:name, :description,
                                         :video_url, :start_at,
-                                        :end_at)
+                                        :end_at, :category)
   end
 end

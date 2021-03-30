@@ -1,4 +1,38 @@
 [
-  { "id": 1, "name": "Plano Black", "price": "109,90", "categories": [{ "id": 1, "name": "Yoga" }, { "id": 2, "name": "FitDance" }, { "id": 3, "name": "Crossfit" }], "num_classes_available": 30 },
-  { "id": 2, "name": "Plano Smart", "price": "69,90", "categories": [{ "id": 1, "name": "Yoga" }, { "id": 2, "name": "FitDance" }], "num_classes_available": 15  }
+  {
+    "id": 1,
+    "name": "Plano Black",
+    "price": "109,90",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Yoga"
+      },
+      {
+        "id": 2,
+        "name": "FitDance"
+      },
+      {
+        "id": 3,
+        "name": "Crossfit"
+      }
+    ],
+    "num_classes_available": 30
+  },
+  {
+    "id": 2,
+    "name": "Plano Smart",
+    "price": "69,90",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Yoga"
+      },
+      {
+        "id": 2,
+        "name": "FitDance"
+      }
+    ],
+    "num_classes_available": 15
+  }
 ]

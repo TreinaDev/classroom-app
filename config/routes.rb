@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  get '/user' => "users#panel", as: :user_root
+  get :user, to: "users#panel", as: :user_root
 
   devise_for :customers, controllers: {
     registrations: 'customers/registrations'

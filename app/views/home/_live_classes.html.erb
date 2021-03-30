@@ -1,0 +1,6 @@
+<% @video_classes.each do |video_class| %>
+  <div id='<%= "#{video_class.category}#{video_class.id}" %>'>
+    <%= link_to video_class.name, video_class_path(video_class) %>
+    <%= video_class.user.name %>
+  </div>
+<% end %>
