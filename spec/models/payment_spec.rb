@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Payment do
   context 'PORO' do
     it 'should initialize a new payment' do
-      payment = Payment.new(name: 'Cartão de Crédito')
+      payment = Payment.new(id: 1, name: 'Cartão de Crédito')
 
       expect(payment.name).to eq 'Cartão de Crédito'
     end
@@ -20,9 +20,9 @@ describe Payment do
       payments = Payment.all
 
       expect(payments.length).to eq(3)
-      expect(payments.first).to eq('Cartão de Crédito')
-      expect(payments.second).to eq('Boleto')
-      expect(payments.third).to eq('Pix')
+      expect(payments.first.name).to eq('Cartão de Crédito')
+      expect(payments.second.name).to eq('Boleto')
+      expect(payments.third.name).to eq('Pix')
     end
 
     it 'should return empty if bad request' do

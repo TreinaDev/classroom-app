@@ -5,6 +5,6 @@ FactoryBot.define do
     password { '123456' }
     cpf { '320234909-43' }
     age { 56 }
-    payment_methods { 'Boleto' }
+    payment_methods { 1 }
   end
 end
