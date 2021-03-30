@@ -14,9 +14,21 @@ feature 'Customer views video class details' do
   scenario 'successfully' do
     customer = create(:customer, token: '46465dssafd')
     video_class = create(:video_class, start_at: '2021-04-16 18:08:04',
-                                       end_at: '2021-04-16 18:58:04', category: 'Musculação')
+                                       end_at: '2021-04-16 18:58:04', category: 1)
 
-    allow(Plan).to receive(:find_customer_plans).with('46465dssafd').and_return([])
+    customer_plan = Plan.new(
+      id: 1,
+      name: 'Básico',
+      price: '50',
+      categories: [
+        Category.new(id: 1, name: 1),
+        Category.new(id: 2, name: 2)
+      ],
+      num_classes_available: 5
+    )
+
+    allow(Plan).to receive(:find_customer_plans).with('46465dssafd')
+                                                .and_return([customer_plan])
 
     login_as customer, scope: :customer
 
@@ -32,15 +44,15 @@ feature 'Customer views video class details' do
 
   scenario 'must have plan and category allowed' do
     customer = create(:customer, token: '46465dssafd')
-    video_class = create(:video_class, category: 'Yoga')
+    video_class = create(:video_class, category: 1)
 
     customer_plan = Plan.new(
       id: 1,
       name: 'Básico',
       price: '50',
       categories: [
-        Category.new(id: 1, name: 'Yoga'),
-        Category.new(id: 2, name: 'FitDance')
+        Category.new(id: 1, name: 1),
+        Category.new(id: 2, name: 2)
       ],
       num_classes_available: 5
     )
@@ -55,9 +67,9 @@ feature 'Customer views video class details' do
     expect(page).to have_link 'Participar da aula'
   end
 
-  scenario 'link disappear if customer plan does not category' do
+  scenario 'link disappears if the plan does not have the category' do
     customer = create(:customer, token: '46465dssafd')
-    video_class = create(:video_class, category: 'Crossfit')
+    video_class = create(:video_class, category: 3)
     customer_plan = Plan.new(
       id: 1,
       name: 'Básico',
@@ -81,7 +93,7 @@ feature 'Customer views video class details' do
 
   scenario 'link disappear if customer does not have plan' do
     customer = create(:customer, token: '46465dssafd')
-    video_class = create(:video_class, category: 'Crossfit')
+    video_class = create(:video_class, category: 1)
 
     allow(Plan).to receive(:find_customer_plans).with('46465dssafd').and_return([])
 

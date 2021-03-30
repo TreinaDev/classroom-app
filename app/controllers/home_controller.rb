@@ -3,11 +3,11 @@ class HomeController < ApplicationController
     if customer_signed_in?
       @plans = Plan.find_customer_plans(current_customer.token)
 
-      categories = @plans.map { |plan| plan.categories.pluck(:name) }
+      categories = @plans.map { |plan| plan.categories.map(&:id) }
                          .flatten
                          .uniq
 
-      @video_classes = get_onlive_video_classes(categories)
+      @video_classes = onlive_video_classes(categories)
     else
       @plans = Plan.all
     end
@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
   private
 
-  def get_onlive_video_classes(categories)
+  def onlive_video_classes(categories)
     current_time = DateTime.now
 
     VideoClass.where('category IN (?) AND' \

@@ -9,30 +9,37 @@ class Plan
     @num_classes_available = num_classes_available
   end
 
-  def self.all
-    response = Faraday.get('smartflix.com.br/api/v1/plans')
-
-    return [] if response.status != 200
-
-    json_response = JSON.parse(response.body, symbolize_names: true)
-
-    json_response = json_response.map do |r|
-      r[:categories].map! { |category| Category.new(category) }
-      r
-    end
-    json_response.map { |r| new(r) }
-  end
-
-  def self.find_customer_plans(token)
-    response = Faraday.get("smartflix.com.br/api/v1/enrollment/#{token}/plans")
-    json_response = JSON.parse(response.body, symbolize_names: true)
-
-    return [] if response.status != 200
-
-    json_response.map { |r| new(r) }
-  end
-
   def watch_video_class?(video_class)
-    categories.map(&:name).include?(video_class.category)
+    categories.map(&:id).include?(video_class.category)
+  end
+
+  class << self
+    def all
+      response = Faraday.get('smartflix.com.br/api/v1/plans')
+
+      return [] if response.status != 200
+
+      build_plan(response.body)
+    end
+
+    def find_customer_plans(token)
+      response = Faraday.get("smartflix.com.br/api/v1/enrollment/#{token}/plans")
+
+      return [] if response.status != 200
+
+      build_plan(response.body)
+    end
+
+    private
+
+    def build_plan(body)
+      json_response = JSON.parse(body, symbolize_names: true)
+
+      json_response = json_response.map do |r|
+        r[:categories].map! { |category| Category.new(category) }
+        r
+      end
+      json_response.map { |r| new(r) }
+    end
   end
 end

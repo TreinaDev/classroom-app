@@ -13,6 +13,7 @@ class Customer < ApplicationRecord
     return false if response.status == 401
 
     update(token: response.body)
+
     return response if response.status == 201
   end
 
@@ -20,5 +21,9 @@ class Customer < ApplicationRecord
     { full_name: self.full_name,
       email: self.email,
       payment_methods: self.payment_methods }.to_json
+  end
+
+  def plan?
+    Plan.find_customer_plans(token).any?
   end
 end

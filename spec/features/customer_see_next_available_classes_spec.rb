@@ -2,21 +2,15 @@ require 'rails_helper'
 
 feature 'customer sees next available classes' do
   scenario 'successfully' do
-    aluno = create(:customer)
+    aluno = create(:customer, token: 'a2w5q8y10ei')
 
     customer_plan = Plan.new(
       id: 1,
       name: 'Plano Black',
       price: 109.90,
       categories: [
-        {
-          id: 1,
-          name: 'Bodybuilding'
-        },
-        {
-          id: 2,
-          name: 'Crossfit'
-        }
+        Category.new(id: 1, name: 'Bodybuilding'),
+        Category.new(id: 2, name: 'Crossfit')
       ],
       num_classes_available: 30
     )
@@ -41,25 +35,25 @@ feature 'customer sees next available classes' do
                         user: crossfit_teacher,
                         start_at: '17-03-2021 20:00:00',
                         end_at: '17-03-2021 21:30:00',
-                        category: 'Crossfit')
+                        category: 2)
     crossfit02 = create(:video_class,
                         name: 'CrossFit - Aula 01',
                         user: crossfit_teacher,
                         start_at: '18-03-2021 20:00:00',
                         end_at: '18-03-2021 21:30:00',
-                        category: 'Crossfit')
+                        category: 2)
     bodybuilding01 = create(:video_class,
                             name: 'Musculacao - Aula inaugural',
                             user: bodybuilding_teacher,
                             start_at: '17-03-2021 20:00:00',
                             end_at: '17-03-2021 21:30:00',
-                            category: 'Bodybuilding')
+                            category: 1)
     bodybuilding02 = create(:video_class,
                             name: 'Musculacao - Aula 01',
                             user: bodybuilding_teacher,
                             start_at: '18-03-2021 20:00:00',
                             end_at: '18-03-2021 21:30:00',
-                            category: 'Bodybuilding')
+                            category: 1)
 
     login_as aluno, scope: :customer
 
