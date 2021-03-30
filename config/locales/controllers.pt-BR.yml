@@ -1,0 +1,4 @@
+pt-BR:
+  video_classes:
+    messages:
+      must_be_signed: "Você precisa estar logado"
