@@ -39,5 +39,21 @@ describe Customer do
 
       expect(response).to eq(false)
     end
+
+    it 'should receive token from enrollment system' do
+      customer = create(:customer)
+      data = customer.build_data
+      resp_json = File.read(Rails.root.join('spec/support/apis/get_token.json'))
+      resp_double = double('faraday_response', status: 201, body: resp_json)
+
+      allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
+                                            data,
+                                            'Content-Type' => 'application/json')
+                                      .and_return(resp_double)
+      response = customer.send_data_to_enrollments_api
+      json = JSON.parse(response.body, symbolize_names: true)
+      pp json[:token]
+      expect(response.body.length).to eq(3)
+    end
   end
 end
