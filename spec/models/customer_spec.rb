@@ -30,7 +30,7 @@ describe Customer do
       data = customer.build_data
       resp_double = double('faraday_response', status: 401, body: '')
 
-      allow(Faraday).to receive(:post).with(Rails.configuration.url['customers_enrollment_url',
+      allow(Faraday).to receive(:post).with(Rails.configuration.url['customers_enrollment_url'],
                                             data,
                                             'Content-Type' => 'application/json')
                                       .and_return(resp_double)

@@ -4,14 +4,16 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :full_name, :cpf, :age, :birth_date, presence: true
+  validates :full_name, :cpf, :age, presence: true
+  validates :token, presence: true, on: :update
 
   def send_data_to_enrollments_api
     url = Rails.configuration.url['customers_enrollment_url']
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
-    return response if response.status == 201
+    return false if response.status == 401
 
-    false
+    update(token: response.body)
+    return response if response.status == 201
   end
 
   def build_data
@@ -20,9 +22,5 @@ class Customer < ApplicationRecord
       cpf: self.cpf,
       birth_date: self.birth_date,
       payment_methods: self.payment_methods }.to_json
-  end
-
-  def add_token(response)
-    self.update(token: response.body.token)
   end
 end

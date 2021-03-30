@@ -27,7 +27,10 @@ feature 'customer register' do
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    post_resp_double = double('faraday_response', status: 201, body: 'token_retornado')
+    resp_customer_plans_json = File.read(Rails.root.join('spec/support/apis/get_user_plans.json'))
+    resp_customer_plans_double = double('faraday_response', status: 200, body: resp_customer_plans_json)
+
+    post_resp_double = double('faraday_response', status: 201, body: 'a2w5q8y10ei')
 
     allow(Faraday).to receive(:get).with(Rails.configuration.url['payments_url'])
                                    .and_return(get_resp_double)
@@ -35,10 +38,15 @@ feature 'customer register' do
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
                                    .and_return(plans_double)
 
-    allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
+    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/enrollment/a2w5q8y10ei/plans')
+                                   .and_return(resp_customer_plans_double)
+
+    allow(Faraday).to receive(:post).with(Rails.configuration.url['customers_enrollment_url'],
                                           { full_name: 'Guilherme Marques',
                                             email: 'guilherme@gmail.com',
-                                            payment_methods: 'Boleto' }.to_json,
+                                            cpf: '300.119.400-45',
+                                            birth_date: '1983-11-25',
+                                            payment_methods: 1 }.to_json,
                                           'Content-Type' => 'application/json')
                                     .and_return(post_resp_double)
 
@@ -49,9 +57,10 @@ feature 'customer register' do
       fill_in 'Senha', with:  '123456'
       fill_in 'Confirmar Senha', with: '123456'
       fill_in 'Nome Completo', with: 'Guilherme Marques'
-      fill_in 'CPF', with: '1234567-87'
-      fill_in 'Idade', with: '40'
-      page.select 'Boleto', from: 'Formas de Pagamento'
+      fill_in 'CPF', with: '300.119.400-45'
+      fill_in 'Idade', with: '37'
+      fill_in 'Data de Nascimento', with: '25/11/1983'
+      find(:css, "#customer_payment_methods_1[value='1']").set(true)
 
       click_on 'Inscrever-se'
     end
@@ -59,8 +68,8 @@ feature 'customer register' do
     expect(current_path).to eq root_path
     expect(Customer.last.email).to eq('guilherme@gmail.com')
     expect(Customer.last.full_name).to eq('Guilherme Marques')
-    expect(Customer.last.cpf).to eq('1234567-87')
-    expect(Customer.last.age).to eq(40)
+    expect(Customer.last.cpf).to eq('300.119.400-45')
+    expect(Customer.last.age).to eq(37)
   end
 
   scenario 'and should not allow empty fields' do
@@ -79,7 +88,8 @@ feature 'customer register' do
       fill_in 'Nome Completo', with: ''
       fill_in 'CPF', with: ''
       fill_in 'Idade', with: ''
-      page.select 'Boleto', from: 'Formas de Pagamento'
+      fill_in 'Data de Nascimento', with: ''
+      find(:css, "#customer_payment_methods_1[value='1']").set(true)
 
       click_on 'Inscrever-se'
     end

@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_03_30_200353) do
     t.integer "age"
     t.integer "payment_methods"
     t.date "birth_date"
+    t.string "token"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_03_30_200353) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
+    t.string "category", null: false
     t.index ["user_id"], name: "index_video_classes_on_user_id"
   end
 
