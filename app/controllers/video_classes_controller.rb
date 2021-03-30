@@ -1,6 +1,7 @@
 class VideoClassesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :authenticate_user_or_customer!, only: %i[show]
+  before_action :set_video_class, only: %i[show edit update destroy]
 
   def new
     @categories = Category.all
@@ -21,7 +22,6 @@ class VideoClassesController < ApplicationController
   end
 
   def show
-    set_video_class
     return [] unless customer_signed_in?
 
     @plans = Plan.find_customer_plans(current_customer.token)
@@ -29,12 +29,9 @@ class VideoClassesController < ApplicationController
 
   def edit
     @categories = Category.all
-    set_video_class
   end
 
   def update
-    set_video_class
-
     if @video_class.update(video_class_params)
       redirect_to video_class_path(@video_class)
     else
@@ -44,7 +41,6 @@ class VideoClassesController < ApplicationController
   end
 
   def destroy
-    set_video_class
     @video_class.destroy
 
     flash[:notice] = 'Aula apagada com sucesso!'
