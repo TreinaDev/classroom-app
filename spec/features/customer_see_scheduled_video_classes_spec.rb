@@ -5,21 +5,26 @@ feature 'Customer see scheduled video class' do
     aluno = create(:customer)
 
     customer_plan = Plan.new(
+      id: 1,
       name: 'Plano Black',
       price: 109.90,
       categories: [
         {
+          id: 1,
           name: 'Bodybuilding'
         },
         {
+          id: 2,
           name: 'Crossfit'
         }
-      ]
+      ],
+      num_classes_available: 30
     )
 
     allow(DateTime).to receive(:now) { DateTime.parse '2021-03-17 20:30:00.000000000 -0300' }
-    allow(Plan).to receive(:find_by).with('a2w5q8y10ei')
+    allow(Plan).to receive(:find_customer_plans).with('a2w5q8y10ei')
                                     .and_return([customer_plan])
+    allow(aluno).to receive(:token).and_return('a2w5q8y10ei')
 
     crossfit_teacher = create(:user,
                               email: 'crossfit@smartflix.com.br',
@@ -57,8 +62,8 @@ feature 'Customer see scheduled video class' do
 
     login_as aluno, scope: :customer
 
-    # TODO: definir caminho de acesso para agenda
     visit root_path
+    click_on 'Agenda de Aulas'
 
     expect(current_path).to eq(scheduled_video_classes_path)
     within("div\##{crossfit02.category}#{crossfit02.id}") do

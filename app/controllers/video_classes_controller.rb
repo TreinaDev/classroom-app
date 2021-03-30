@@ -27,6 +27,8 @@ class VideoClassesController < ApplicationController
     @plans = Plan.find_customer_plans(current_customer.token)
   end
 
+  def scheduled; end
+
   private
 
   def video_class_params

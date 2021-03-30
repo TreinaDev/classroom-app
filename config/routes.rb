@@ -7,7 +7,11 @@ Rails.application.routes.draw do
     registrations: 'customers/registrations'
   }
 
+  resources :customers, only: %i[ show ]
+
   resources :users, only: %i[show]
 
-  resources :video_classes, only: %i[new create show]
+  resources :video_classes, only: %i[new create show] do
+    get 'scheduled', on: :collection
+  end
 end
