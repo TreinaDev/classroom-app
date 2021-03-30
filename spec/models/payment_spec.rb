@@ -14,7 +14,7 @@ describe Payment do
       resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
       resp_double = double('faraday_response', status: 200, body: resp_json)
 
-      allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment_methods')
+      allow(Faraday).to receive(:get).with(Rails.configuration.url['payments_url'])
                                      .and_return(resp_double)
 
       payments = Payment.all
@@ -28,7 +28,7 @@ describe Payment do
     it 'should return empty if bad request' do
       resp_double = double('faraday_response', status: 400, body: '')
 
-      allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment_methods')
+      allow(Faraday).to receive(:get).with(Rails.configuration.url['payments_url'])
                                      .and_return(resp_double)
 
       payments = Payment.all
@@ -39,7 +39,7 @@ describe Payment do
     it 'should return empty if internal server error' do
       resp_double = double('faraday_response', status: 500, body: '')
 
-      allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment_methods')
+      allow(Faraday).to receive(:get).with(Rails.configuration.url['payments_url'])
                                      .and_return(resp_double)
 
       payments = Payment.all
