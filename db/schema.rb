@@ -84,7 +84,18 @@ ActiveRecord::Schema.define(version: 2021_03_30_200353) do
     t.index ["user_id"], name: "index_video_classes_on_user_id"
   end
 
+  create_table "watched_classes", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "video_class_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_watched_classes_on_customer_id"
+    t.index ["video_class_id"], name: "index_watched_classes_on_video_class_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "video_classes", "users"
+  add_foreign_key "watched_classes", "customers"
+  add_foreign_key "watched_classes", "video_classes"
 end
