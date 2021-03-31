@@ -70,7 +70,8 @@ feature 'customer register' do
     expect(Customer.last.full_name).to eq('Guilherme Marques')
     expect(Customer.last.cpf).to eq('300.119.400-45')
     expect(Customer.last.age).to eq(37)
-    expect(I18n.l Customer.last.birth_date).to eq('25/11/1983')
+    expect(I18n.l(Customer.last.birth_date)).to eq('25/11/1983')
+    expect(Customer.last.payment_methods).to eq(1)
 
   end
 
