@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   private
 
   def onlive_video_classes(categories)
-    current_time = DateTime.now
+    current_time = Time.zone.now
 
     VideoClass.where('category IN (?) AND' \
                      '? BETWEEN start_at AND end_at',

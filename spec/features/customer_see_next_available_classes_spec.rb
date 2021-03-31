@@ -15,7 +15,9 @@ feature 'customer sees next available classes' do
       num_classes_available: 30
     )
 
-    allow(DateTime).to receive(:now) { DateTime.parse '2021-03-17 20:30:00.000000000 -0300' }
+    time = ActiveSupport::TimeZone.new('Brasilia')
+    allow(Time).to receive(:zone) { time }
+    allow(time).to receive(:now) { DateTime.parse '2021-03-17 20:30:00.000000000 -0300' }
     allow(Plan).to receive(:find_customer_plans).with('a2w5q8y10ei')
                                                 .and_return([customer_plan])
 
