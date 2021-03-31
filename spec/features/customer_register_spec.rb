@@ -41,11 +41,11 @@ feature 'customer register' do
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/enrollment/a2w5q8y10ei/plans')
                                    .and_return(resp_customer_plans_double)
 
-    allow(Faraday).to receive(:post).with(Rails.configuration.url['customers_enrollment_url'],
+    allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                           { full_name: 'Guilherme Marques',
-                                            email: 'guilherme@gmail.com',
                                             cpf: '300.119.400-45',
                                             birth_date: '1983-11-25',
+                                            email: 'guilherme@gmail.com',
                                             payment_methods: 1 }.to_json,
                                           'Content-Type' => 'application/json')
                                     .and_return(post_resp_double)
@@ -70,6 +70,8 @@ feature 'customer register' do
     expect(Customer.last.full_name).to eq('Guilherme Marques')
     expect(Customer.last.cpf).to eq('300.119.400-45')
     expect(Customer.last.age).to eq(37)
+    expect(I18n.l Customer.last.birth_date).to eq('25/11/1983')
+
   end
 
   scenario 'and should not allow empty fields' do
@@ -97,6 +99,7 @@ feature 'customer register' do
     expect(page).to have_content('Nome Completo não pode ficar em branco')
     expect(page).to have_content('CPF não pode ficar em branco')
     expect(page).to have_content('Idade não pode ficar em branco')
+    expect(page).to have_content('Data de Nascimento não pode ficar em branco')
     expect(Customer.last).to eq(nil)
   end
 end
