@@ -37,8 +37,13 @@
   </div>
 
   <div class="field">
+    <%= f.label :birth_date %><br />
+    <%= f.date_field :birth_date %>
+  </div>
+
+  <div class="field" id="payments">
     <%= f.label :payment_methods %><br />
-    <%= f.select :payment_methods, @payments %>
+    <%= f.collection_radio_buttons :payment_methods, @payments, :id, :name %>
   </div>
 
   <div class="actions">
