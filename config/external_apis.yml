@@ -1,0 +1,11 @@
+defaults: &defaults
+  payments_url: http://localhost:5000/api/v1/payment_methods
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -7,7 +7,7 @@ class Customer < ApplicationRecord
   has_many :watched_classes, dependent: :destroy
   has_many :video_classes, through: :watched_classes
 
-  validates :full_name, :cpf, :age, presence: true
+  validates :full_name, :cpf, :age, :birth_date, presence: true
   validates :token, presence: true, on: :update
 
   def send_data_to_enrollments_api
@@ -21,6 +21,8 @@ class Customer < ApplicationRecord
 
   def build_data
     { full_name: self.full_name,
+      cpf: self.cpf,
+      birth_date: self.birth_date,
       email: self.email,
       payment_methods: self.payment_methods }.to_json
   end
