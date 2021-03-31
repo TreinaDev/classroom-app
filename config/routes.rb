@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   }
 
   resources :users, only: %i[ show ]
-  
-  resources :video_classes do
+    
+  resources :video_classes, only: %i[ new create show edit update ] do
+    post "disable", on: :member
     post 'watch', on:  :member
   end
 end

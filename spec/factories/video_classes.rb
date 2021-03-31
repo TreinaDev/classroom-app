@@ -6,6 +6,7 @@ FactoryBot.define do
     start_at { '2021-04-16 18:08:04' }
     end_at { '2021-04-16 18:58:04' }
     category { 'Crossfit' }
+    status { 0 }
     user
   end
 end
