@@ -8,7 +8,7 @@ feature 'customer register' do
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    allow(Faraday).to receive(:get).with(Rails.configuration.url['payments_url'])
+    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(payments_double)
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
@@ -32,7 +32,7 @@ feature 'customer register' do
 
     post_resp_double = double('faraday_response', status: 201, body: 'a2w5q8y10ei')
 
-    allow(Faraday).to receive(:get).with(Rails.configuration.url['payments_url'])
+    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(get_resp_double)
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
@@ -78,7 +78,7 @@ feature 'customer register' do
     resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
     get_resp_double = double('faraday_response', status: 200, body: resp_json)
 
-    allow(Faraday).to receive(:get).with(Rails.configuration.url['payments_url'])
+    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(get_resp_double)
 
     visit new_customer_registration_path

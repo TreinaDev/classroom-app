@@ -7,7 +7,7 @@ class Payment
   end
 
   def self.all
-    response = Faraday.get(Rails.configuration.url['payments_url'])
+    response = Faraday.get(Rails.configuration.external_apis['payments_url'])
     return [] if response.status == 400 || response.status == 500
 
     json_response = JSON.parse(response.body, symbolize_names: true)
