@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :watched_class do
     customer { nil }
-    VideoClass { nil }
+    video_class { nil }
   end
 end

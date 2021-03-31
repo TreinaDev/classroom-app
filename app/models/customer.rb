@@ -4,7 +4,7 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :watched_classes
+  has_many :watched_classes, dependent: :destroy
   has_many :video_classes, through: :watched_classes
 
   validates :full_name, :cpf, :age, presence: true

@@ -119,4 +119,30 @@ feature 'Customer watches video class' do
     expect(current_path).to eq video_class_path(video_class)
     expect(customer.watched_classes.length).to eq 1
   end
+
+  scenario 'user can watch class more than once' do
+    customer = create(:customer, token: '46465dssafd')
+    video_class = create(:video_class, category: 'Yoga')
+    WatchedClass.create(customer: customer, video_class: video_class)
+    customer_plan = Plan.new(
+      id: 1,
+      name: 'Básico',
+      price: '50',
+      categories: [
+        Category.new(id: 1, name: 'Yoga'),
+        Category.new(id: 2, name: 'FitDance')
+      ],
+      num_classes_available: 5
+    )
+
+    allow(Plan).to receive(:find_customer_plans).with('46465dssafd')
+                                                .and_return([customer_plan])
+
+    login_as customer, scope: :customer
+
+    visit video_class_path(video_class)
+    click_on 'Participar da aula'
+
+    expect(customer.watched_classes.length).to eq 2
+  end
 end
