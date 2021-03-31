@@ -6,6 +6,8 @@ describe Customer do
 
     it { should validate_presence_of(:cpf) }
 
+    it { should validate_presence_of(:birth_date) }
+
     it { should validate_presence_of(:age) }
   end
 
@@ -23,7 +25,7 @@ describe Customer do
 
       customer.send_data_to_enrollments_api
 
-      expect(customer.token).to eq('gFM')
+      expect(customer.token).to eq('p6Q')
     end
 
     it 'should return false if any error occur' do
