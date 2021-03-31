@@ -1,11 +1,12 @@
 class HomeController < ApplicationController
   def index
     if customer_signed_in?
-      @plans = Plan.find_customer_plans(current_customer.token)
+      current_customer.plans = find_plans
 
-      categories = @plans.map { |plan| plan.categories.map(&:id) }
-                         .flatten
-                         .uniq
+      categories = current_customer.plans
+                                   .map { |plan| plan.categories.map(&:id) }
+                                   .flatten
+                                   .uniq
 
       @video_classes = onlive_video_classes(categories)
     else

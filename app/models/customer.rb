@@ -7,6 +7,8 @@ class Customer < ApplicationRecord
   validates :full_name, :cpf, :age, presence: true
   validates :token, presence: true, on: :update
 
+  attr_accessor :plans
+
   def send_data_to_enrollments_api
     url = 'smartflix.com.br/api/v1/enrollments'
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
@@ -25,7 +27,7 @@ class Customer < ApplicationRecord
   end
 
   def plan?
-    Plan.find_customer_plans(token).any?
+    plans.any?
   end
 
   private

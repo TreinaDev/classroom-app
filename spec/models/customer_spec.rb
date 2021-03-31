@@ -54,16 +54,14 @@ describe Customer do
                         Category.new(id: 3, name: 'Crossfit')
                       ],
                       num_classes_available: 30)
-      allow(customer).to receive(:token).and_return('46465dssafd')
-      allow(Plan).to receive(:find_customer_plans).with('46465dssafd').and_return([plan])
+      customer.plans = [plan]
 
       expect(customer.plan?).to be_truthy
     end
 
     it 'failure' do
       customer = create(:customer, token: '46465dssafd')
-      allow(customer).to receive(:token).and_return('46465dssafd')
-      allow(Plan).to receive(:find_customer_plans).with('46465dssafd').and_return([])
+      customer.plans = []
 
       expect(customer.plan?).to be_falsy
     end

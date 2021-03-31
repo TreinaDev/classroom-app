@@ -30,8 +30,6 @@ class Plan
       build_plan(response.body)
     end
 
-    private
-
     def build_plan(body)
       json_response = JSON.parse(body, symbolize_names: true)
 

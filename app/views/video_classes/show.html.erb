@@ -19,7 +19,7 @@
 
 <% if customer_signed_in? %>
   <% if current_customer.plan? %>
-    <% if @plans.any? { |plan| plan.watch_video_class?(@video_class) } %>
+    <% if current_customer.plans.any? { |plan| plan.watch_video_class?(@video_class) } %>
       <%= link_to t('.attend_class') %>
     <% end %>
   <% end %>
