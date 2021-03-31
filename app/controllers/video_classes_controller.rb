@@ -24,7 +24,7 @@ class VideoClassesController < ApplicationController
     @video_class = VideoClass.find(params[:id])
     return [] unless customer_signed_in?
 
-    current_customer.plans = find_plans
+    current_customer.plans = find_customer_plans
   end
 
   private

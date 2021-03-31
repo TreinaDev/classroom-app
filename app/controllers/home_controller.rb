@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     if customer_signed_in?
-      current_customer.plans = find_plans
+      current_customer.plans = find_customer_plans
 
       categories = current_customer.plans
                                    .map { |plan| plan.categories.map(&:id) }

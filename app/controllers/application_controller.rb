@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def find_plans
+  def find_customer_plans
     if session[:current_customer_plans]
       Plan.build_plan(session[:current_customer_plans])
     elsif customer_signed_in?
