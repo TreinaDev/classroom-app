@@ -12,9 +12,10 @@ class Customer < ApplicationRecord
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
     return false if response.status == 401
 
-    update(token: response.body)
+    hashed_response = JSON.parse(response.body, symbolize_names: true)
+    add_token(hashed_response[:token])
 
-    return response if response.status == 201
+    return hashed_response if response.status == 201
   end
 
   def build_data
@@ -25,5 +26,11 @@ class Customer < ApplicationRecord
 
   def plan?
     Plan.find_customer_plans(token).any?
+  end
+
+  private
+
+  def add_token(token)
+    update(token: token)
   end
 end
