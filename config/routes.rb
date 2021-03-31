@@ -3,11 +3,15 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get :user, to: "users#panel", as: :user_root
+
   devise_for :customers, controllers: {
     registrations: 'customers/registrations'
   }
 
-  resources :users, only: %i[show]
-
-  resources :video_classes, only: %i[new create show]
+  resources :users, only: %i[ show ]
+  
+  resources :video_classes do
+    post 'watch', on:  :member
+  end
 end

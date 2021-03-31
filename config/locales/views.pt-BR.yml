@@ -1,6 +1,6 @@
 pt-BR:
   video_classes:
     show:
-      video_list: 'Lista de vídeos'
+      video_class_details: 'Detalhes da aula'
       schedule: 'Horário'
       attend_class: 'Participar da aula'
