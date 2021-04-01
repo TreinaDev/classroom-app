@@ -29,7 +29,8 @@ class Plan
 
     return [] if response.status != 200
 
-    json_response.map { |r| new(r) }
+    new(id: json_response, name: json_response, price: json_response, 
+        num_classes_available: json_response, categories: json_response)
   end
 
   def watch_video_class?(video_class)

@@ -28,4 +28,8 @@ class Customer < ApplicationRecord
       email: self.email,
       payment_methods: self.payment_methods }.to_json
   end
+
+  def customer_plan?(token)
+    false
+  end
 end
