@@ -1,5 +1,11 @@
 [
-  { "name": "Cartão de Crédito"},
-  { "name": "Boleto" },
-  { "name": "Pix" }
+  { "id": 1,
+    "name": "Cartão de Crédito"
+  },
+  { "id": 2,
+    "name": "Boleto" 
+  },
+  { "id": 3,
+    "name": "Pix" 
+  }
 ]

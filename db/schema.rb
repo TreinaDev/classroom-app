@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_130527) do
+ActiveRecord::Schema.define(version: 2021_03_30_200353) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,8 +51,9 @@ ActiveRecord::Schema.define(version: 2021_03_30_130527) do
     t.string "full_name"
     t.string "cpf"
     t.integer "age"
-    t.string "payment_methods"
+    t.integer "payment_methods"
     t.string "token"
+    t.date "birth_date"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -83,7 +84,18 @@ ActiveRecord::Schema.define(version: 2021_03_30_130527) do
     t.index ["user_id"], name: "index_video_classes_on_user_id"
   end
 
+  create_table "watched_classes", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "video_class_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_watched_classes_on_customer_id"
+    t.index ["video_class_id"], name: "index_watched_classes_on_video_class_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "video_classes", "users"
+  add_foreign_key "watched_classes", "customers"
+  add_foreign_key "watched_classes", "video_classes"
 end

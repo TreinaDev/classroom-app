@@ -6,6 +6,8 @@ describe Customer do
 
     it { should validate_presence_of(:cpf) }
 
+    it { should validate_presence_of(:birth_date) }
+
     it { should validate_presence_of(:age) }
   end
 
