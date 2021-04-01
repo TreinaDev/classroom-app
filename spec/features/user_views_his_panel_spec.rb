@@ -12,7 +12,13 @@ feature 'User views his panel' do
     user = create(:user)
     video_class = create(:video_class, user: user)
     create(:video_class, name: 'Secar barriga',
-                         description: 'Aula aeróbica intensa, focada em secar barriga', user: user)
+                         description: 'Aula aeróbica intensa, focada em secar barriga',
+                         user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 
@@ -20,7 +26,7 @@ feature 'User views his panel' do
 
     expect(page).to have_link video_class.name
     expect(page).to have_content video_class.description
-    expect(page).to have_content video_class.category_id
+    expect(page).to have_content video_class.category.name
     expect(page).to have_link 'Secar barriga'
     expect(page).to have_content 'Aula aeróbica intensa, focada em secar barriga'
   end
@@ -59,7 +65,13 @@ feature 'User can edit and delete video class' do
     user = create(:user)
     create(:video_class, user: user)
     create(:video_class, name: 'Secar barriga',
-                         description: 'Aula aeróbica intensa, focada em secar barriga', user: user)
+                         description: 'Aula aeróbica intensa, focada em secar barriga',
+                         user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 
@@ -72,7 +84,13 @@ feature 'User can edit and delete video class' do
     user = create(:user)
     create(:video_class, user: user)
     create(:video_class, name: 'Secar barriga',
-                         description: 'Aula aeróbica intensa, focada em secar barriga', user: user)
+                         description: 'Aula aeróbica intensa, focada em secar barriga',
+                         user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 

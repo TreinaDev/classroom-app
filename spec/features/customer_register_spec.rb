@@ -30,9 +30,8 @@ feature 'customer register' do
     resp_customer_plans_json = File.read(Rails.root.join('spec/support/apis/get_user_plans.json'))
     resp_customer_plans_double = double('faraday_response', status: 200, body: resp_customer_plans_json)
 
-    post_resp_double = double('faraday_response',
-                              status: 201,
-                              body: '{ "token": "a2w5q8y10ei" }')
+    resp_post_json = File.read(Rails.root.join('spec/support/apis/get_token.json'))
+    post_resp_double = double('faraday_response', status: 201, body: resp_post_json)
 
     allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(get_resp_double)
@@ -40,7 +39,7 @@ feature 'customer register' do
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
                                    .and_return(plans_double)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/enrollment/a2w5q8y10ei/plans')
+    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/enrollment/p6Q/plans')
                                    .and_return(resp_customer_plans_double)
 
     allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',

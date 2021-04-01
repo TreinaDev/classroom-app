@@ -15,18 +15,17 @@ describe Customer do
     it 'should send json data' do
       customer = create(:customer)
       data = customer.build_data
-      resp_double = double('faraday_response',
-                           status: 201,
-                           body: '{ "token": "token_retornado" }')
+      resp_json = File.read(Rails.root.join('spec/support/apis/get_token.json'))
+      resp_double = double('faraday_response', status: 201, body: resp_json)
 
       allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                             data,
                                             'Content-Type' => 'application/json')
                                       .and_return(resp_double)
 
-      response = customer.send_data_to_enrollments_api
+      customer.send_data_to_enrollments_api
 
-      expect(response[:token]).to eq('token_retornado')
+      expect(customer.token).to eq('p6Q')
     end
 
     it 'should return false if any error occur' do

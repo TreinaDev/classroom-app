@@ -6,7 +6,7 @@
   <dt><%= VideoClass.human_attribute_name("description") %></dt>
   <dd><%= video_class.description %></dd>
   <dt><%= VideoClass.human_attribute_name("category_id") %></dt>
-  <dd><%= video_class.category_id  %></dd>
+  <dd><%= video_class.category.name  %></dd>
   <%= link_to 'Editar', edit_video_class_path(video_class) %>
   <%= link_to 'Apagar aula', video_class_path(video_class), method: :delete,
                                                             data: { confirm: "Tem certeza?" }  %>
