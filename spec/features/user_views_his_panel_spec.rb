@@ -20,7 +20,7 @@ feature 'User views his panel' do
 
     expect(page).to have_link video_class.name
     expect(page).to have_content video_class.description
-    expect(page).to have_content video_class.category
+    expect(page).to have_content video_class.category_id
     expect(page).to have_link 'Secar barriga'
     expect(page).to have_content 'Aula aeróbica intensa, focada em secar barriga'
   end
@@ -28,6 +28,11 @@ feature 'User views his panel' do
   scenario 'have link to view video class details' do
     user = create(:user)
     video_class = create(:video_class, user: user)
+    categories = [
+      Category.new(id: 2, name: 'Crossfit'),
+      Category.new(id: 1, name: 'Bodybuilding')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 

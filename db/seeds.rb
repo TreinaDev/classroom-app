@@ -71,7 +71,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/1/play',
       start_at: "#{date_now.strftime}T20:00:00-03:00",
       end_at: "#{date_now.strftime}T21:30:00-03:00",
-      category: 1,
+      category_id: 1,
       user_id: teachers[2].id
     },
     {
@@ -80,7 +80,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/2/play',
       start_at: "#{(date_now + 3).strftime}T20:00:00-03:00",
       end_at: "#{(date_now + 3).strftime}T21:30:00-03:00",
-      category: 1,
+      category_id: 1,
       user_id: teachers[2].id
     },
     {
@@ -89,7 +89,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/3/play',
       start_at: "#{(date_now + 6).strftime}T20:00:00-03:00",
       end_at: "#{(date_now + 6).strftime}T21:30:00-03:00",
-      category: 1,
+      category_id: 1,
       user_id: teachers[2].id
     },
     {
@@ -98,7 +98,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/4/play',
       start_at: "#{date_now.strftime}T20:00:00-03:00",
       end_at: "#{date_now.strftime}T21:30:00-03:00",
-      category: 2,
+      category_id: 2,
       user_id: teachers[1].id
     },
     {
@@ -107,7 +107,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/5/play',
       start_at: "#{(date_now + 3).strftime}T20:00:00-03:00",
       end_at: "#{(date_now + 3).strftime}T21:30:00-03:00",
-      category: 2,
+      category_id: 2,
       user_id: teachers[1].id
     },
     {
@@ -116,7 +116,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/6/play',
       start_at: "#{(date_now + 6).strftime}T20:00:00-03:00",
       end_at: "#{(date_now + 6).strftime}T21:30:00-03:00",
-      category: 2,
+      category_id: 2,
       user_id: teachers[1].id
     },
     {
@@ -125,7 +125,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/7/play',
       start_at: "#{date_now.strftime}T20:00:00-03:00",
       end_at: "#{date_now.strftime}T21:30:00-03:00",
-      category: 3,
+      category_id: 3,
       user_id: teachers[0].id
     },
     {
@@ -134,7 +134,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/8/play',
       start_at: "#{(date_now + 3).strftime}T20:00:00-03:00",
       end_at: "#{(date_now + 3).strftime}T21:30:00-03:00",
-      category: 3,
+      category_id: 3,
       user_id: teachers[0].id
     },
     {
@@ -143,7 +143,7 @@ VideoClass.create(
       video_url: 'www.smartflix.com.br/video_classes/9/play',
       start_at: "#{(date_now + 6).strftime}T20:00:00-03:00",
       end_at: "#{(date_now + 6).strftime}T21:30:00-03:00",
-      category: 3,
+      category_id: 3,
       user_id: teachers[0].id
     }
   ]

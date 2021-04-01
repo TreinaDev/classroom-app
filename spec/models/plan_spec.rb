@@ -3,26 +3,18 @@ require 'rails_helper'
 describe Plan do
   context 'PORO' do
     it 'should initialize a new plan' do
+      categories = [
+        Category.new(id: 1, name: 'Yoga'),
+        Category.new(id: 2, name: 'FitDance'),
+        Category.new(id: 3, name: 'Crossfit')
+      ]
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
-                      categories: [
-                        {
-                          id: 1,
-                          name: 'Yoga'
-                        },
-                        {
-                          id: 2,
-                          name: 'FitDance'
-                        },
-                        {
-                          id: 3,
-                          name: 'Crossfit'
-                        }
-                      ],
+                      categories: categories,
                       num_classes_available: 30)
 
       expect(plan.name).to eq('Plano Black')
-      expect(plan.categories).to eq [{ id: 1, name: 'Yoga' }, { id: 2, name: 'FitDance' }, { id: 3, name: 'Crossfit' }]
+      expect(plan.categories).to eq categories
       expect(plan.num_classes_available).to eq(30)
       expect(plan.price).to eq('109,90')
     end
@@ -101,7 +93,7 @@ describe Plan do
 
   context '#watch_video_class?' do
     it 'successfully' do
-      video_class = create(:video_class, category: 3)
+      video_class = create(:video_class, category_id: 3)
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
                       categories: [
@@ -115,7 +107,7 @@ describe Plan do
     end
 
     it 'failure' do
-      video_class = create(:video_class, category: 3)
+      video_class = create(:video_class, category_id: 3)
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
                       categories: [

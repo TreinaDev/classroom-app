@@ -10,7 +10,7 @@ class Plan
   end
 
   def watch_video_class?(video_class)
-    categories.map(&:id).include?(video_class.category)
+    categories.map(&:id).include?(video_class.category_id)
   end
 
   class << self

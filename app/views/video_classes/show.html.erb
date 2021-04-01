@@ -6,7 +6,7 @@
 <dt><%= VideoClass.human_attribute_name("video_url") %></dt>
 <dd><%= @video_class.video_url  %></dd>
 <dt><%= VideoClass.human_attribute_name("category") %></dt>
-<dd><%= @video_class.category  %></dd>
+<dd><%= @video_class.category.name %></dd>
 <dt><%= User.model_name.human %></dt>
 <dd><%= @video_class.user.name  %></dd>
 <dt><%= t('.schedule') %></dt>

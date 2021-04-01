@@ -5,7 +5,7 @@ RSpec.describe VideoClass, type: :model do
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:video_url) }
   it { should validate_presence_of(:start_at) }
-  it { should validate_presence_of(:category) }
+  it { should validate_presence_of(:category_id) }
   it { should validate_presence_of(:end_at) }
   it { should belong_to(:user) }
 
