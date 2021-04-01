@@ -15,7 +15,9 @@ class Customer < ApplicationRecord
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
     return false if response.status == 401
 
-    update(token: response.body)
+    json_response = JSON.parse(response.body, symbolize_names: true)
+
+    update(token: json_response[:token])
     return response if response.status == 201
   end
 
