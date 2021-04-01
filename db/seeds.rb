@@ -31,8 +31,9 @@ Customer.create(
     {
       full_name: 'Júlio César de Oliveira',
       age: 40,
+      birth_date: 40.years.ago.to_date + 50.days,
       cpf: '123.456.789-10',
-      payment_methods: 'cartão',
+      payment_methods: 1,
       password: 'c&s@rJulh0',
       email: 'julio101cesar@hotmail.com',
       token: 'ALEBy2tP'
@@ -40,8 +41,9 @@ Customer.create(
     {
       full_name: 'Joana da Silva Santos',
       age: 20,
+      birth_date: 20.years.ago.to_date + 3.days,
       cpf: '102.456.789-30',
-      payment_methods: 'boleto',
+      payment_methods: 2,
       password: 'J0j0S1lv',
       email: 'josilsantos2000@gmail.com',
       token: '3iLE5p2P'
@@ -49,8 +51,9 @@ Customer.create(
     {
       full_name: 'Ana Mara de Mesquita',
       age: 29,
+      birth_date: 29.years.ago.to_date + 30.days,
       cpf: '089.823.479-19',
-      payment_methods: 'transferência',
+      payment_methods: 3,
       password: 'maraana782',
       email: 'anamesq@outlook.com',
       token: '1S2EpZhF'
