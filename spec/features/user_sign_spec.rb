@@ -17,7 +17,7 @@ feature 'User sign up' do
       click_on 'Registrar-se'
     end
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq user_root_path
     expect(page).to have_content 'Milena Ferreira'
     expect(User.last.photo.attached?).to eq true
     expect(page).to have_content 'Login efetuado com sucesso. Se não foi autorizado,'\
@@ -80,6 +80,7 @@ feature 'User sign in' do
       click_on 'Entrar'
     end
 
+    expect(current_path).to eq user_root_path
     expect(page).to have_content 'Login efetuado com sucesso'
     expect(page).to have_content user.name
     expect(page).not_to have_link 'Acesso Professor'

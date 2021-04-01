@@ -8,7 +8,7 @@ feature 'customer register' do
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
+    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(payments_double)
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
@@ -38,21 +38,25 @@ feature 'customer register' do
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    post_resp_double = double('faraday_response', status: 201, body: 'a2w5q8y10ei')
+    token = File.read(Rails.root.join('spec/support/apis/get_token.json'))
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
+    post_resp_double = double('faraday_response', status: 201, body: token)
+
+    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(get_resp_double)
 
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
                                    .and_return(plans_double)
 
-    allow(Plan).to receive(:find_customer_plans).with('a2w5q8y10ei')
+    allow(Plan).to receive(:find_customer_plans).with('p6Q')
                                                 .and_return([customer_plan])
 
     allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                           { full_name: 'Guilherme Marques',
+                                            cpf: '300.119.400-45',
+                                            birth_date: '1983-11-25',
                                             email: 'guilherme@gmail.com',
-                                            payment_methods: 'Boleto' }.to_json,
+                                            payment_methods: 1 }.to_json,
                                           'Content-Type' => 'application/json')
                                     .and_return(post_resp_double)
 
@@ -63,9 +67,10 @@ feature 'customer register' do
       fill_in 'Senha', with:  '123456'
       fill_in 'Confirmar Senha', with: '123456'
       fill_in 'Nome Completo', with: 'Guilherme Marques'
-      fill_in 'CPF', with: '1234567-87'
-      fill_in 'Idade', with: '40'
-      page.select 'Boleto', from: 'Formas de Pagamento'
+      fill_in 'CPF', with: '300.119.400-45'
+      fill_in 'Idade', with: '37'
+      fill_in 'Data de Nascimento', with: '25/11/1983'
+      find(:css, "#customer_payment_methods_1[value='1']").set(true)
 
       click_on 'Inscrever-se'
     end
@@ -73,15 +78,17 @@ feature 'customer register' do
     expect(current_path).to eq root_path
     expect(Customer.last.email).to eq('guilherme@gmail.com')
     expect(Customer.last.full_name).to eq('Guilherme Marques')
-    expect(Customer.last.cpf).to eq('1234567-87')
-    expect(Customer.last.age).to eq(40)
+    expect(Customer.last.cpf).to eq('300.119.400-45')
+    expect(Customer.last.age).to eq(37)
+    expect(I18n.l(Customer.last.birth_date)).to eq('25/11/1983')
+    expect(Customer.last.payment_methods).to eq(1)
   end
 
   scenario 'and should not allow empty fields' do
     resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
     get_resp_double = double('faraday_response', status: 200, body: resp_json)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/payments')
+    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(get_resp_double)
 
     visit new_customer_registration_path
@@ -93,7 +100,8 @@ feature 'customer register' do
       fill_in 'Nome Completo', with: ''
       fill_in 'CPF', with: ''
       fill_in 'Idade', with: ''
-      page.select 'Boleto', from: 'Formas de Pagamento'
+      fill_in 'Data de Nascimento', with: ''
+      find(:css, "#customer_payment_methods_1[value='1']").set(true)
 
       click_on 'Inscrever-se'
     end
@@ -101,6 +109,7 @@ feature 'customer register' do
     expect(page).to have_content('Nome Completo não pode ficar em branco')
     expect(page).to have_content('CPF não pode ficar em branco')
     expect(page).to have_content('Idade não pode ficar em branco')
+    expect(page).to have_content('Data de Nascimento não pode ficar em branco')
     expect(Customer.last).to eq(nil)
   end
 end

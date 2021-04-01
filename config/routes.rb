@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get :user, to: "users#panel", as: :user_root
+
   devise_for :customers, controllers: {
     registrations: 'customers/registrations'
   }
@@ -11,7 +13,8 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show]
 
-  resources :video_classes, only: %i[new create show] do
+  resources :video_classes do
     get 'scheduled', on: :collection
+    post 'watch', on: :member    
   end
 end
