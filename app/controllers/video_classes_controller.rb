@@ -1,6 +1,6 @@
 class VideoClassesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
-  before_action :authenticate_user_or_customer!, only: %i[show]
+  before_action :authenticate_user_or_customer!, only: %i[show scheduled]
 
   def new
     @categories = Category.all
@@ -27,7 +27,21 @@ class VideoClassesController < ApplicationController
     @plans = Plan.find_customer_plans(current_customer.token)
   end
 
-  def scheduled; end
+  def scheduled
+    plans = Plan.find_customer_plans(current_customer.token)
+
+    categories = plans.map(&:categories)
+                      .flatten
+                      .uniq(&:id)
+
+    current_time = Time.zone.now
+
+    @video_classes_hash = {}
+    categories.each do |category|
+      @video_classes_hash[category.name] = VideoClass.where(category: category.name)
+                                                     .where('start_at > ?', current_time)
+    end
+  end
 
   private
 

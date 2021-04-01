@@ -6,6 +6,10 @@ class Category
     @id = id
   end
 
+  def ==(other)
+    instance_variables == other.instance_variables
+  end
+
   def self.all
     response = Faraday.get('smartflix.com.br/api/v1/categories')
     json_response = JSON.parse(response.body, symbolize_names: true)

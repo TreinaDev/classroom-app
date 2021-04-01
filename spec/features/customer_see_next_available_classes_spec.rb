@@ -9,14 +9,8 @@ feature 'customer sees next available classes' do
       name: 'Plano Black',
       price: 109.90,
       categories: [
-        {
-          id: 1,
-          name: 'Bodybuilding'
-        },
-        {
-          id: 2,
-          name: 'Crossfit'
-        }
+        Category.new(id: 1, name: 'Bodybuilding'),
+        Category.new(id: 2, name: 'Crossfit')
       ],
       num_classes_available: 30
     )

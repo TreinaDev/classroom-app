@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     if customer_signed_in?
       @plans = Plan.find_customer_plans(current_customer.token)
 
-      categories = @plans.map { |plan| plan.categories.pluck(:name) }
+      categories = @plans.map { |plan| plan.categories.map(&:name) }
                          .flatten
                          .uniq
 
