@@ -5,9 +5,11 @@
     "price": "109,90",
     "categories": [
       {
+        "id": 1,
         "name": "Bodybuilding"
       },
       {
+        "id": 2,
         "name": "Crossfit"
       }
     ],

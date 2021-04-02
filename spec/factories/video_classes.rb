@@ -5,7 +5,7 @@ FactoryBot.define do
     video_url { 'smartflix.com.br/definir_abdomen' }
     start_at { '2021-04-16 18:08:04' }
     end_at { '2021-04-16 18:58:04' }
-    category { 'Crossfit' }
+    category_id { 1 }
     user
   end
 end

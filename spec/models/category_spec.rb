@@ -25,4 +25,64 @@ describe Plan do
       expect(categories[2].name).to eq 'Zumba'
     end
   end
+
+  context '#==' do
+    it 'successfully' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 1, name: 'undefined')
+      expect(category1 == category2).to be_truthy
+    end
+
+    it 'failure: different ids' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 2, name: 'undefined')
+      expect(category1 == category2).to be_falsy
+    end
+
+    it 'failure: different names' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 1, name: 'defined')
+      expect(category1 == category2).to be_falsy
+    end
+  end
+
+  context '#eql?' do
+    it 'successfully' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 1, name: 'undefined')
+      expect(category1.eql?(category2)).to be_truthy
+    end
+
+    it 'failure: different ids' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 2, name: 'undefined')
+      expect(category1.eql?(category2)).to be_falsy
+    end
+
+    it 'failure: different names' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 1, name: 'defined')
+      expect(category1.eql?(category2)).to be_falsy
+    end
+  end
+
+  context '#hash' do
+    it 'successfully' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 1, name: 'undefined')
+      expect(category1.hash == category2.hash).to be_truthy
+    end
+
+    it 'failure: different ids' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 2, name: 'undefined')
+      expect(category1.hash == category2.hash).to be_falsy
+    end
+
+    it 'failure: different names' do
+      category1 = Category.new(id: 1, name: 'undefined')
+      category2 = Category.new(id: 1, name: 'defined')
+      expect(category1.hash == category2.hash).to be_falsy
+    end
+  end
 end
