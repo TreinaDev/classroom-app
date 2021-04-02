@@ -9,9 +9,12 @@ Rails.application.routes.draw do
     registrations: 'customers/registrations'
   }
 
-  resources :users, only: %i[ show ]
-  
+  resources :customers, only: %i[ show ]
+
+  resources :users, only: %i[show]
+
   resources :video_classes do
+    get 'scheduled', on: :collection
     post 'watch', on: :member
   end
 end
