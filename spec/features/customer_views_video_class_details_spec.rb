@@ -46,13 +46,12 @@ feature 'Customer views video class details' do
     ]
     video_class = create(:video_class, category_id: 1)
 
-    customer_plan = Plan.new(
-      id: 1,
-      name: 'Básico',
-      price: '50',
-      categories: categories,
-      num_classes_available: 5
-    )
+    customer_plan = Plan.new(id: 1, name: 'Plano Black',
+                             monthly_rate: 109.90,
+                             monthly_class_limit: 30,
+                             description: 'Para aqueles que querem entrar em forma',
+                             status: 'active',
+                             class_categories: categories)
 
     allow(Category).to receive(:all).and_return(categories)
     allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
@@ -75,13 +74,12 @@ feature 'Customer views video class details' do
       Category.new(id: 3, name: 'Zumba')
     ]
     video_class = create(:video_class, category_id: 3)
-    customer_plan = Plan.new(
-      id: 1,
-      name: 'Básico',
-      price: '50',
-      categories: categories.take(2),
-      num_classes_available: 5
-    )
+    customer_plan = Plan.new(id: 1, name: 'Plano Black',
+                             monthly_rate: 109.90,
+                             monthly_class_limit: 30,
+                             description: 'Para aqueles que querem entrar em forma',
+                             status: 'active',
+                             class_categories: categories.take(2))
 
     allow(Category).to receive(:all).and_return(categories)
     allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
@@ -126,13 +124,12 @@ feature 'Customer watches video class' do
       Category.new(id: 2, name: 'FitDance')
     ]
     video_class = create(:video_class, category_id: 1)
-    customer_plan = Plan.new(
-      id: 1,
-      name: 'Básico',
-      price: '50',
-      categories: categories,
-      num_classes_available: 5
-    )
+    customer_plan = Plan.new(id: 1, name: 'Plano Black',
+                             monthly_rate: 109.90,
+                             monthly_class_limit: 30,
+                             description: 'Para aqueles que querem entrar em forma',
+                             status: 'active',
+                             class_categories: categories)
 
     allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
                                                      .and_return(customer_plan)
@@ -158,13 +155,12 @@ feature 'Customer watches video class' do
     ]
     video_class = create(:video_class, category_id: 1)
     WatchedClass.create(customer: customer, video_class: video_class)
-    customer_plan = Plan.new(
-      id: 1,
-      name: 'Básico',
-      price: '50',
-      categories: categories,
-      num_classes_available: 5
-    )
+    customer_plan = Plan.new(id: 1, name: 'Plano Black',
+                             monthly_rate: 109.90,
+                             monthly_class_limit: 30,
+                             description: 'Para aqueles que querem entrar em forma',
+                             status: 'active',
+                             class_categories: categories)
 
     allow(Category).to receive(:all).and_return(categories)
     allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])

@@ -30,7 +30,7 @@ class VideoClassesController < ApplicationController
   def scheduled
     plan = Enrollment.find_customer_plan(current_customer.token)
 
-    categories = plan.categories
+    categories = plan.class_categories
     current_time = Time.zone.now
 
     @video_classes_hash = {}

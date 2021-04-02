@@ -4,27 +4,27 @@ class Plan
   BASE_URL = Rails.configuration.external_apis['enrollments_url']
   PLANS_RELATIVE_PATH = '/plans'.freeze
 
-  attr_accessor :id, :name, :price, :num_classes_available, :categories
-
-  def initialize(id:, name:, price:, num_classes_available:, categories: nil)
-    @id = id
-    @name = name
-    @price = price
-    @categories ||= categories
-    @num_classes_available = num_classes_available
+  def initialize(attributes)
+    attributes.each do |key, value|
+      instance_variable_set("@#{key}", value)
+      define_singleton_method(key) do
+        instance_variable_get("@#{key}")
+      end
+      define_singleton_method("#{key}=".to_sym) do |val|
+        instance_variable_set("@#{key}", val)
+      end
+    end
   end
 
   def watch_video_class?(category)
-    categories.include?(category)
+    class_categories.include?(category)
   end
 
   def ==(other)
     return false if other.class != Plan
-    return false if other.id != id
-    return false if other.name != name
-    return false if other.price != price
-    return false if other.num_classes_available != num_classes_available
-    return false if other.categories != categories
+    return false if instance_variables.any? do |var|
+      instance_variable_get(var) != other.instance_variable_get(var)
+    end
 
     true
   end
@@ -36,7 +36,9 @@ class Plan
   end
 
   def hash
-    (id.hash + name.hash + price.hash + num_classes_available.hash + categories.hash).hash
+    instance_variables.map { |var| instance_variable_get(var).hash }
+                      .sum
+                      .hash
   end
 
   class << self
@@ -51,7 +53,7 @@ class Plan
     def build_plans(body)
       plans_hash_array = JSON.parse(body, symbolize_names: true)
       plans_hash_array = plans_hash_array.map do |r|
-        r[:categories].map! { |category| Category.new(id: category[:id], name: category[:name]) }
+        r[:class_categories].map! { |category| Category.new(id: category[:id], name: category[:name]) }
         r
       end
       plans_hash_array.map { |r| new(r) }
@@ -61,7 +63,7 @@ class Plan
 
     def build_plan(body)
       plan_hash = JSON.parse(body, symbolize_names: true)
-      plan_hash[:categories].map! { |category| Category.new(id: category[:id], name: category[:name]) }
+      plan_hash[:class_categories].map! { |category| Category.new(id: category[:id], name: category[:name]) }
       new(plan_hash)
     rescue JSON::ParserError
       nil

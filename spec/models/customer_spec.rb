@@ -48,13 +48,15 @@ describe Customer do
     it 'successfully' do
       customer = create(:customer, token: '46465dssafd')
       plan = Plan.new(id: 1, name: 'Plano Black',
-                      price: '109,90',
-                      categories: [
+                      monthly_rate: 109.90,
+                      monthly_class_limit: 30,
+                      description: 'Para aqueles que querem entrar em forma',
+                      status: 'active',
+                      class_categories: [
                         Category.new(id: 1, name: 'Yoga'),
                         Category.new(id: 2, name: 'FitDance'),
                         Category.new(id: 3, name: 'Crossfit')
-                      ],
-                      num_classes_available: 30)
+                      ])
       customer.plan = plan
 
       expect(customer.plan?).to be_truthy

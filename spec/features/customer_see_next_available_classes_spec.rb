@@ -8,13 +8,12 @@ feature 'customer sees next available classes' do
       Category.new(id: 2, name: 'Crossfit')
     ]
 
-    customer_plan = Plan.new(
-      id: 1,
-      name: 'Plano Black',
-      price: 109.90,
-      categories: categories,
-      num_classes_available: 30
-    )
+    customer_plan = Plan.new(id: 1, name: 'Plano Black',
+                             monthly_rate: 109.90,
+                             monthly_class_limit: 30,
+                             description: 'Para aqueles que querem entrar em forma',
+                             status: 'active',
+                             class_categories: categories)
 
     time = ActiveSupport::TimeZone.new('Brasilia')
     allow(Time).to receive(:zone) { time }

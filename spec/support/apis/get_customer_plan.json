@@ -1,8 +1,11 @@
 {
   "id": 2,
   "name": "Plano Smart",
-  "price": 69.90,
-  "categories": [
+  "monthly_rate": 69.90,
+  "monthly_class_limit": 15,
+  "description": "Para aqueles que querem entrar em forma",
+  "status": "active",
+  "class_categories": [
     {
       "id": 1,
       "name": "Yoga"
@@ -11,6 +14,5 @@
       "id": 2,
       "name": "FitDance"
     }
-  ],
-  "num_classes_available": 15
+  ]
 }

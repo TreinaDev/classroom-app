@@ -1,0 +1,22 @@
+{
+  "status": "active",
+  "enrolled_at": "2021-04-01",
+  "plan": {
+    "id": 2,
+    "name": "Plano Smart",
+    "monthly_rate": 69.90,
+    "monthly_class_limit": 15,
+    "description": "Para aqueles que querem entrar em forma",
+    "status": "active",
+    "class_categories": [
+      {
+        "id": 1,
+        "name": "Yoga"
+      },
+      {
+        "id": 2,
+        "name": "FitDance"
+      }
+    ]
+  }
+}

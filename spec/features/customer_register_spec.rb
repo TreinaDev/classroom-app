@@ -46,7 +46,7 @@ feature 'customer register' do
     allow(Faraday).to receive(:get)
       .with(
         "#{Rails.configuration.external_apis['enrollments_url']}" \
-        "/enrollments/#{resp_post_hash[:token]}/plan"
+        "/enrollments/#{resp_post_hash[:token]}"
       )
       .and_return(resp_customer_plans_double)
 
