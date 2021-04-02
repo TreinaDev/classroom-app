@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 2021_04_01_030843) do
     t.string "cpf"
     t.integer "age"
     t.integer "payment_methods"
-    t.string "token"
     t.date "birth_date"
+    t.string "token"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end

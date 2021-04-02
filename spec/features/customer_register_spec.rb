@@ -21,17 +21,26 @@ feature 'customer register' do
   end
 
   scenario 'successfully' do
+    customer_plan = Plan.new(
+      id: 1,
+      name: 'Plano Black',
+      price: 109.90,
+      categories: [
+        Category.new(id: 1, name: 'Bodybuilding'),
+        Category.new(id: 2, name: 'Crossfit')
+      ],
+      num_classes_available: 30
+    )
+
     resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
     get_resp_double = double('faraday_response', status: 200, body: resp_json)
 
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    resp_customer_plans_json = File.read(Rails.root.join('spec/support/apis/get_user_plans.json'))
-    resp_customer_plans_double = double('faraday_response', status: 200, body: resp_customer_plans_json)
+    token = File.read(Rails.root.join('spec/support/apis/get_token.json'))
 
-    resp_post_json = File.read(Rails.root.join('spec/support/apis/get_token.json'))
-    post_resp_double = double('faraday_response', status: 201, body: resp_post_json)
+    post_resp_double = double('faraday_response', status: 201, body: token)
 
     allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
                                    .and_return(get_resp_double)
@@ -39,8 +48,8 @@ feature 'customer register' do
     allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
                                    .and_return(plans_double)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/enrollment/p6Q/plans')
-                                   .and_return(resp_customer_plans_double)
+    allow(Plan).to receive(:find_customer_plans).with('p6Q')
+                                                .and_return([customer_plan])
 
     allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
                                           { full_name: 'Guilherme Marques',

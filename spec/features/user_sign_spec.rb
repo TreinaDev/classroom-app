@@ -18,7 +18,7 @@ feature 'User sign up' do
     end
 
     expect(current_path).to eq user_root_path
-    expect(page).to have_content 'milena@smartflix.com.br'
+    expect(page).to have_content 'Milena Ferreira'
     expect(User.last.photo.attached?).to eq true
     expect(page).to have_content 'Login efetuado com sucesso. Se não foi autorizado,'\
                                   ' a confirmação será enviada por e-mail'
@@ -82,7 +82,7 @@ feature 'User sign in' do
 
     expect(current_path).to eq user_root_path
     expect(page).to have_content 'Login efetuado com sucesso'
-    expect(page).to have_content user.email
+    expect(page).to have_content user.name
     expect(page).not_to have_link 'Acesso Professor'
   end
 
