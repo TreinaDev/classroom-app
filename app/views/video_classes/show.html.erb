@@ -19,7 +19,12 @@
 
 <% if customer_signed_in? %>
   <% if @plans.any? { |plan| plan.watch_video_class?(@video_class) } %>
-   <%= link_to t('.attend_class'), watch_video_class_path(@video_class), method: :post %>
+    <% if current_customer.consumed_video_classes?(@plans.first) %>
+      <%= 'Você atingiu o limite de aulas disponíveis no mês' %>
+      <%= link_to 'Turbinar plano' %>
+    <% else %>
+      <%= link_to t('.attend_class'), watch_video_class_path(@video_class), method: :post %>
+    <% end %>
   <% end %>
 <% end %>
 

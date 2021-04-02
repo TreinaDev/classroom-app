@@ -4,11 +4,18 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :watched_classes, dependent: :destroy
-  has_many :video_classes, through: :watched_classes
+  has_many :watched_classes, -> { distinct_by_video_class }, inverse_of: false, dependent: :destroy
 
   validates :full_name, :cpf, :age, :birth_date, presence: true
   validates :token, presence: true, on: :update
+
+  def consumed_video_classes?(plan)
+    # FIXME: pegar start_at do plano
+    start_date = 15.days.ago
+    end_date = start_date + 1.month
+    num = watched_classes.created_between(start_date, end_date).size
+    plan.num_classes_available <= num
+  end
 
   def send_data_to_enrollments_api
     url = 'smartflix.com.br/api/v1/enrollments'

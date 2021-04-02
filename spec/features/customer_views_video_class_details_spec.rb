@@ -143,6 +143,6 @@ feature 'Customer watches video class' do
     visit video_class_path(video_class)
     click_on 'Participar da aula'
 
-    expect(customer.watched_classes.length).to eq 2
+    expect(customer.watched_classes.length).to eq 1
   end
 end
