@@ -1,5 +1,5 @@
 <% @plans.each do |plan| %>
-  <%= plan.name %> 
-  <%= number_to_currency plan.price %>
+  <%= plan.name %>
+  <%= number_to_currency plan.monthly_rate %>
   <%= link_to 'Contratar', nil %> <%# Botão redireciona para login %>
 <% end %>

@@ -22,10 +22,23 @@ class Customers::RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     if resource.send_data_to_enrollments_api
+      plan = Enrollment.find_customer_plan(resource.token)
+      session[:current_customer_plan] = plan.to_json
       super(resource)
     else
       customer_registration_path
     end
+  end
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) ||
+      if resource.is_a?(Customer)
+        plan = Enrollment.find_customer_plan(resource.token)
+        session[:current_customer_plan] = plan.to_json
+        super(resource)
+      else
+        super
+      end
   end
 
   # GET /resource/edit

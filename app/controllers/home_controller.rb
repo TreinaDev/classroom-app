@@ -1,24 +1,20 @@
 class HomeController < ApplicationController
   def index
-    if customer_signed_in?
-      @plans = Plan.find_customer_plans(current_customer.token)
+    current_customer.plan = Enrollment.find_customer_plan(current_customer.token)
 
-      categories = @plans.map { |plan| plan.categories.pluck(:name) }
-                         .flatten
-                         .uniq
+    categories = current_customer.plan.class_categories.map(&:id)
 
-      @video_classes = get_onlive_video_classes(categories)
-    else
-      @plans = Plan.all
-    end
+    @video_classes = onlive_video_classes(categories)
+  rescue NoMethodError
+    @plans = Plan.all
   end
 
   private
 
-  def get_onlive_video_classes(categories)
-    current_time = DateTime.now
+  def onlive_video_classes(categories)
+    current_time = Time.zone.now
 
-    VideoClass.where('category IN (?) AND' \
+    VideoClass.where('category_id IN (?) AND' \
                      '? BETWEEN start_at AND end_at',
                      categories,
                      current_time)

@@ -16,4 +16,16 @@ class ApplicationController < ActionController::Base
 
     redirect_to root_path, notice: t('video_classes.messages.must_be_signed')
   end
+
+  private
+
+  def find_customer_plan
+    if session[:current_customer_plan]
+      Plan.build_plan(session[:current_customer_plan])
+    elsif customer_signed_in?
+      plan = Enrollment.find_customer_plan(current_customer.token)
+      session[:current_customer_plan] = plan.to_json
+      plan
+    end
+  end
 end

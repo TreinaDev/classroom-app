@@ -12,7 +12,15 @@ feature 'User views his panel' do
     user = create(:user)
     video_class = create(:video_class, user: user)
     create(:video_class, name: 'Secar barriga',
-                         description: 'Aula aeróbica intensa, focada em secar barriga', user: user)
+                         description: 'Aula aeróbica intensa, focada em secar barriga',
+                         user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -20,7 +28,7 @@ feature 'User views his panel' do
 
     expect(page).to have_link video_class.name
     expect(page).to have_content video_class.description
-    expect(page).to have_content video_class.category
+    expect(page).to have_content video_class.category.name
     expect(page).to have_link 'Secar barriga'
     expect(page).to have_content 'Aula aeróbica intensa, focada em secar barriga'
   end
@@ -28,6 +36,13 @@ feature 'User views his panel' do
   scenario 'have link to view video class details' do
     user = create(:user)
     video_class = create(:video_class, user: user)
+    categories = [
+      Category.new(id: 2, name: 'Crossfit'),
+      Category.new(id: 1, name: 'Bodybuilding')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -54,7 +69,15 @@ feature 'User can edit and delete video class' do
     user = create(:user)
     create(:video_class, user: user)
     create(:video_class, name: 'Secar barriga',
-                         description: 'Aula aeróbica intensa, focada em secar barriga', user: user)
+                         description: 'Aula aeróbica intensa, focada em secar barriga',
+                         user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -67,7 +90,15 @@ feature 'User can edit and delete video class' do
     user = create(:user)
     create(:video_class, user: user)
     create(:video_class, name: 'Secar barriga',
-                         description: 'Aula aeróbica intensa, focada em secar barriga', user: user)
+                         description: 'Aula aeróbica intensa, focada em secar barriga',
+                         user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 

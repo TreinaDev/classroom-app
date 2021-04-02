@@ -1,6 +1,6 @@
 <h1>Smartflix</h1>
 
-<% if customer_signed_in? %>
+<% if customer_signed_in? && current_customer.plan? %>
   <%= render 'live_classes' %>
 <% else %>
   <p>Escolha seu plano</p>
@@ -9,3 +9,4 @@
 <% end %>
 
 <%=link_to 'Alunos', new_customer_registration_path%>
+

@@ -1,0 +1,12 @@
+<h1 id='head'>Agenda de próximas aulas</h1>
+
+<% @video_classes_hash.each do |category, video_classes| %>
+  <div id= '<%= category %>'>
+    <% video_classes.each do |video_class| %>
+      <div>
+        <p><%= video_class.name %></p>
+        <p><%= video_class.user.name %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

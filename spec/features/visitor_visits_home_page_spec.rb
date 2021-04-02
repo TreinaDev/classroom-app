@@ -5,8 +5,9 @@ feature 'Visitor visits home page' do
     resp_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     resp_double = double('faraday_response', status: 200, body: resp_json)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
-                                   .and_return(resp_double)
+    allow(Faraday).to receive(:get)
+      .with("#{Rails.configuration.external_apis['enrollments_url']}/plans")
+      .and_return(resp_double)
 
     visit root_path
 

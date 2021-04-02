@@ -24,6 +24,10 @@ feature 'User create new video class' do
     ]
 
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
+    allow(Category).to receive(:find_by).with(id: 3).and_return(categories[2])
+    allow(Category).to receive(:find_by).with(id: 4).and_return(categories[3])
 
     login_as user, scope: :user
 
@@ -88,6 +92,13 @@ feature 'User edit video class' do
   scenario 'have link' do
     user = create(:user)
     create(:video_class, user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -107,6 +118,10 @@ feature 'User edit video class' do
     ]
 
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
+    allow(Category).to receive(:find_by).with(id: 3).and_return(categories[2])
+    allow(Category).to receive(:find_by).with(id: 4).and_return(categories[3])
 
     login_as user, scope: :user
 
@@ -140,6 +155,10 @@ feature 'User edit video class' do
     ]
 
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
+    allow(Category).to receive(:find_by).with(id: 3).and_return(categories[2])
+    allow(Category).to receive(:find_by).with(id: 4).and_return(categories[3])
 
     login_as user, scope: :user
 
@@ -165,6 +184,13 @@ feature 'User can delete video class' do
   scenario 'have link' do
     user = create(:user)
     create(:video_class, user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -176,6 +202,13 @@ feature 'User can delete video class' do
   scenario 'successfully' do
     user = create(:user)
     video_class = create(:video_class, user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 

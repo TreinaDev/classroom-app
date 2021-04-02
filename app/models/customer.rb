@@ -10,15 +10,17 @@ class Customer < ApplicationRecord
   validates :full_name, :cpf, :age, :birth_date, presence: true
   validates :token, presence: true, on: :update
 
+  attr_accessor :plan
+
   def send_data_to_enrollments_api
-    url = 'smartflix.com.br/api/v1/enrollments'
+    url = "#{Rails.configuration.external_apis['enrollments_url']}/enrollments"
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
     return false if response.status == 401
 
-    json_response = JSON.parse(response.body, symbolize_names: true)
+    hashed_response = JSON.parse(response.body, symbolize_names: true)
+    add_token(hashed_response[:token])
 
-    update(token: json_response[:token])
-    return response if response.status == 201
+    return hashed_response if response.status == 201
   end
 
   def build_data
@@ -29,7 +31,18 @@ class Customer < ApplicationRecord
       payment_methods: self.payment_methods }.to_json
   end
 
+<<<<<<< HEAD
   def customer_plan?(token)
     false
+=======
+  def plan?
+    !!plan
+  end
+
+  private
+
+  def add_token(token)
+    update(token: token)
+>>>>>>> 5eca136a1c6b81204f614e43e59d38604df6f5e0
   end
 end

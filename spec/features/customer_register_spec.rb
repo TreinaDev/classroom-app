@@ -8,10 +8,10 @@ feature 'customer register' do
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['payments_url']}/payment_methods")
                                    .and_return(payments_double)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['enrollments_url']}/plans")
                                    .and_return(plans_double)
     visit root_path
 
@@ -27,29 +27,40 @@ feature 'customer register' do
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
     plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    resp_customer_plans_json = File.read(Rails.root.join('spec/support/apis/get_user_plans.json'))
-    resp_customer_plans_double = double('faraday_response', status: 200, body: resp_customer_plans_json)
+    resp_customer_plans_double = double('faraday_response',
+                                        status: 404,
+                                        body: '{}')
 
     resp_post_json = File.read(Rails.root.join('spec/support/apis/get_token.json'))
     post_resp_double = double('faraday_response', status: 201, body: resp_post_json)
+    resp_post_hash = JSON.parse(resp_post_json, symbolize_names: true)
 
-    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
-                                   .and_return(get_resp_double)
+    allow(Faraday).to receive(:get)
+      .with("#{Rails.configuration.external_apis['payments_url']}/payment_methods")
+      .and_return(get_resp_double)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/plans')
-                                   .and_return(plans_double)
+    allow(Faraday).to receive(:get)
+      .with("#{Rails.configuration.external_apis['enrollments_url']}/plans")
+      .and_return(plans_double)
 
-    allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/enrollment/p6Q/plans')
-                                   .and_return(resp_customer_plans_double)
+    allow(Faraday).to receive(:get)
+      .with(
+        "#{Rails.configuration.external_apis['enrollments_url']}" \
+        "/enrollments/#{resp_post_hash[:token]}"
+      )
+      .and_return(resp_customer_plans_double)
 
-    allow(Faraday).to receive(:post).with('smartflix.com.br/api/v1/enrollments',
-                                          { full_name: 'Guilherme Marques',
-                                            cpf: '300.119.400-45',
-                                            birth_date: '1983-11-25',
-                                            email: 'guilherme@gmail.com',
-                                            payment_methods: 1 }.to_json,
-                                          'Content-Type' => 'application/json')
-                                    .and_return(post_resp_double)
+    allow(Faraday).to receive(:post)
+      .with(
+        "#{Rails.configuration.external_apis['enrollments_url']}/enrollments",
+        { full_name: 'Guilherme Marques',
+          cpf: '300.119.400-45',
+          birth_date: '1983-11-25',
+          email: 'guilherme@gmail.com',
+          payment_methods: 1 }.to_json,
+        'Content-Type' => 'application/json'
+      )
+      .and_return(post_resp_double)
 
     visit new_customer_registration_path
 
@@ -79,7 +90,7 @@ feature 'customer register' do
     resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
     get_resp_double = double('faraday_response', status: 200, body: resp_json)
 
-    allow(Faraday).to receive(:get).with(Rails.configuration.external_apis['payments_url'])
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['payments_url']}/payment_methods")
                                    .and_return(get_resp_double)
 
     visit new_customer_registration_path
