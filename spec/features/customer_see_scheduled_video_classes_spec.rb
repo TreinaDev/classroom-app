@@ -3,31 +3,32 @@ require 'rails_helper'
 feature 'Customer see scheduled video class' do
   scenario 'successfully' do
     aluno = create(:customer, token: 'a2w5q8y10ei')
-
-    customer_plan = Plan.new(
+    categories = [Category.new(
       id: 1,
-      name: 'Plano Black',
-      price: 109.90,
-      categories: [
-        Category.new(
-          id: 1,
-          name: 'Bodybuilding'
-        ),
-        Category.new(
-          id: 2,
-          name: 'Crossfit'
-        )
-      ],
-      num_classes_available: 30
-    )
+      name: 'Bodybuilding'
+    ),
+                  Category.new(
+                    id: 2,
+                    name: 'Crossfit'
+                  )]
+    customer_plan = Plan.new(id: 1, name: 'Plano Black',
+                             monthly_rate: 109.90,
+                             monthly_class_limit: 30,
+                             description: 'Para aqueles que querem entrar em forma',
+                             status: 'active',
+                             class_categories: categories)
 
     time = ActiveSupport::TimeZone.new('Brasilia')
     allow(Time).to receive(:zone) { time }
     allow(time).to receive(:now) { DateTime.parse '2021-03-17 20:30:00.000000000 -0300' }
-    allow(Plan).to receive(:find_customer_plans).with('a2w5q8y10ei')
-                                                .and_return([customer_plan])
+    allow(Enrollment).to receive(:find_customer_plan).with('a2w5q8y10ei')
+                                                     .and_return(customer_plan)
     allow(aluno).to receive(:token).and_return('a2w5q8y10ei')
-    allow(Category).to receive(:all).and_return(customer_plan.categories)
+    allow(Category).to receive(:all).and_return(customer_plan.class_categories)
+    allow(Category).to receive(:find_by).with(id: 1)
+                                        .and_return(customer_plan.class_categories[0])
+    allow(Category).to receive(:find_by).with(id: 2)
+                                        .and_return(customer_plan.class_categories[1])
 
     crossfit_teacher = create(:user,
                               email: 'crossfit@smartflix.com.br',

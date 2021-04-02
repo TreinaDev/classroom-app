@@ -9,7 +9,7 @@ class VideoClass < ApplicationRecord
   validate :end_date_cannot_be_before_start_date
 
   def category
-    @category ||= Category.all.find { |cat| cat.id == category_id }
+    @category ||= Category.find_by(id: category_id)
   end
 
   private

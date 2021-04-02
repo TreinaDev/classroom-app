@@ -18,12 +18,10 @@
 <dd><%= I18n.localize(@video_class.start_at.to_date) %></dd>
 
 <% if customer_signed_in? %>
-  <% if current_customer.plan? %>
-    <% if current_customer.plans.any? { |plan| plan.watch_video_class?(@video_class) } %>
-      <%= link_to t('.attend_class'),
-                  watch_video_class_path(@video_class),
-                  method: :post %>
-    <% end %>
+  <% if current_customer.plan&.watch_video_class?(@video_class.category) %>
+    <%= link_to t('.attend_class'),
+                watch_video_class_path(@video_class),
+                method: :post %>
   <% end %>
 <% end %>
 

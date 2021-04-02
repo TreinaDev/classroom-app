@@ -15,6 +15,6 @@ Rails.application.routes.draw do
 
   resources :video_classes do
     get 'scheduled', on: :collection
-    post 'watch', on: :member    
+    post 'watch', on: :member
   end
 end

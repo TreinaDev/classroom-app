@@ -22,8 +22,8 @@ class Customers::RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     if resource.send_data_to_enrollments_api
-      session[:current_customer_plans] = Plan.find_customer_plans(resource.token)
-                                             .to_json
+      plan = Enrollment.find_customer_plan(resource.token)
+      session[:current_customer_plan] = plan.to_json
       super(resource)
     else
       customer_registration_path
@@ -33,8 +33,8 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   def after_sign_in_path_for(resource)
     stored_location_for(resource) ||
       if resource.is_a?(Customer)
-        session[:current_customer_plans] = Plan.find_customer_plans(resource.token)
-                                               .to_json
+        plan = Enrollment.find_customer_plan(resource.token)
+        session[:current_customer_plan] = plan.to_json
         super(resource)
       else
         super

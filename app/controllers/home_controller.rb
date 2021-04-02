@@ -1,17 +1,12 @@
 class HomeController < ApplicationController
   def index
-    if customer_signed_in?
-      current_customer.plans = find_customer_plans
+    current_customer.plan = Enrollment.find_customer_plan(current_customer.token)
 
-      categories = current_customer.plans
-                                   .map { |plan| plan.categories.map(&:id) }
-                                   .flatten
-                                   .uniq
+    categories = current_customer.plan.class_categories.map(&:id)
 
-      @video_classes = onlive_video_classes(categories)
-    else
-      @plans = Plan.all
-    end
+    @video_classes = onlive_video_classes(categories)
+  rescue NoMethodError
+    @plans = Plan.all
   end
 
   private

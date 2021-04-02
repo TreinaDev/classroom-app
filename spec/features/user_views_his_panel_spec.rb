@@ -19,6 +19,8 @@ feature 'User views his panel' do
       Category.new(id: 2, name: 'Crossfit')
     ]
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -39,6 +41,8 @@ feature 'User views his panel' do
       Category.new(id: 1, name: 'Bodybuilding')
     ]
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -72,6 +76,8 @@ feature 'User can edit and delete video class' do
       Category.new(id: 2, name: 'Crossfit')
     ]
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -91,6 +97,8 @@ feature 'User can edit and delete video class' do
       Category.new(id: 2, name: 'Crossfit')
     ]
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
