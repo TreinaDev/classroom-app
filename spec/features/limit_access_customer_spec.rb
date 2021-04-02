@@ -33,7 +33,7 @@ feature 'Limit access customer' do
   scenario 'in another month enrollment' do
     customer = create(:customer, token: '46465dssafd')
     video_class = create(:video_class, category: 'Yoga')
-    WatchedClass.create(customer: customer, video_class: video_class )
+    WatchedClass.create(customer: customer, video_class: video_class)
     customer_plan = Plan.new(
       id: 1,
       name: 'Básico',
@@ -82,7 +82,7 @@ feature 'Limit access customer' do
     login_as customer, scope: :customer
 
     visit video_class_path(video_class)
-    
+
     expect(page).to have_link 'Participar da aula'
   end
 end

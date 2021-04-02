@@ -15,22 +15,19 @@ class Customer < ApplicationRecord
   end
 
   def generate_month_period(plan)
-    range_date = (plan.enrolled_at..(plan.enrolled_at + 1.month))
-    if range_date.include?(Date.current)
-      range_date
-    else
-      search_period(plan.enrolled_at)
-    end
+    range_date = plan.enrolled_at..(plan.enrolled_at + 1.month)
+    return range_date if range_date.include?(Date.current)
+
+    search_period(plan.enrolled_at)
   end
 
   def search_period(enrolled_at)
     start_month_period = enrolled_at + 1.month
     final_month_period = start_month_period + 1.month
     loop do
-      range_date = (start_month_period)..(final_month_period)
-      if range_date.include?(Date.current)
-        return range_date
-      end
+      range_date = start_month_period..final_month_period
+      return range_date if range_date.include?(Date.current)
+
       start_month_period += 1.month
       final_month_period += 1.month
     end
