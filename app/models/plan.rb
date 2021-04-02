@@ -1,12 +1,14 @@
 class Plan
-  attr_reader :name, :price, :categories, :num_classes_available
+  attr_reader :name, :price, :categories, :num_classes_available, :enrolled_at, :enrolled_status
 
-  def initialize(id:, name:, price:, num_classes_available:, categories: nil)
+  def initialize(id:, name:, price:, num_classes_available:, categories: nil, enrolled_at: nil, enrolled_status: nil)
     @id = id
     @name = name
     @price = price
     @categories ||= categories
     @num_classes_available = num_classes_available
+    @enrolled_at = enrolled_at&.to_date
+    @enrolled_status = enrolled_status
   end
 
   def self.all

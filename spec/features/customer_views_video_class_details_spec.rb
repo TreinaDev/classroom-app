@@ -38,6 +38,8 @@ feature 'Customer views video class details' do
       id: 1,
       name: 'Básico',
       price: '50',
+      enrolled_at: '2021-04-01',
+      enrolled_status: 'active',
       categories: [
         Category.new(id: 1, name: 'Yoga'),
         Category.new(id: 2, name: 'FitDance')
@@ -101,6 +103,8 @@ feature 'Customer watches video class' do
       id: 1,
       name: 'Básico',
       price: '50',
+      enrolled_at: '2021-04-01',
+      enrolled_status: 'active',
       categories: [
         Category.new(id: 1, name: 'Yoga'),
         Category.new(id: 2, name: 'FitDance')
@@ -128,6 +132,8 @@ feature 'Customer watches video class' do
       id: 1,
       name: 'Básico',
       price: '50',
+      enrolled_at: '2021-04-01',
+      enrolled_status: 'active',
       categories: [
         Category.new(id: 1, name: 'Yoga'),
         Category.new(id: 2, name: 'FitDance')

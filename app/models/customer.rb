@@ -10,11 +10,30 @@ class Customer < ApplicationRecord
   validates :token, presence: true, on: :update
 
   def consumed_video_classes?(plan)
-    # FIXME: pegar start_at do plano
-    start_date = 15.days.ago
-    end_date = start_date + 1.month
-    num = watched_classes.created_between(start_date, end_date).size
-    plan.num_classes_available <= num
+    total_watched = watched_classes.created_between(generate_month_period(plan)).count
+    plan.num_classes_available <= total_watched
+  end
+
+  def generate_month_period(plan)
+    range_date = (plan.enrolled_at..(plan.enrolled_at + 1.month))
+    if range_date.include?(Date.current)
+      range_date
+    else
+      search_period(plan.enrolled_at)
+    end
+  end
+
+  def search_period(enrolled_at)
+    start_month_period = enrolled_at + 1.month
+    final_month_period = start_month_period + 1.month
+    loop do
+      range_date = (start_month_period)..(final_month_period)
+      if range_date.include?(Date.current)
+        return range_date
+      end
+      start_month_period += 1.month
+      final_month_period += 1.month
+    end
   end
 
   def send_data_to_enrollments_api
