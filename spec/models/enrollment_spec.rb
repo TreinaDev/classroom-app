@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 describe Enrollment do
+  context 'PORO' do
+    it 'should initialize a new enrollment' do
+      plan = Plan.new(id: 1, name: 'Plano Black',
+                      price: '109,90',
+                      num_classes_available: 30)
+
+      enrollment = Enrollment.new(plan)
+      expect(enrollment.plan).to eq(plan)
+    end
+  end
+
   context 'Fetch API data to get customer plan' do
     it 'should get customer plan' do
       resp_json = File.read(Rails.root.join('spec/support/apis/get_customer_plan.json'))
@@ -8,15 +19,18 @@ describe Enrollment do
       customer = create(:customer, token: '46465dssafd')
 
       allow(Faraday).to receive(:get)
-        .with("#{Rails.configuration.external_apis['enrollments_url']}/enrollments/#{customer.token}/plan")
+        .with(
+          "#{Rails.configuration.external_apis['enrollments_url']}" \
+          "/enrollments/#{customer.token}/plan"
+        )
         .and_return(resp_double)
 
       plan = Enrollment.find_customer_plan(customer.token)
 
       expect(plan.name).to eq 'Plano Smart'
-      expect(plan.categories).to eq [{ id: 1, name: 'Yoga' }, { id: 2, name: 'FitDance' }]
+      expect(plan.categories).to eq [Category.new(id: 1, name: 'Yoga'), Category.new(id: 2, name: 'FitDance')]
       expect(plan.num_classes_available).to eq 15
-      expect(plan.price).to eq '69,90'
+      expect(plan.price).to eq 69.90
     end
 
     it 'should return empty if not authorized' do
