@@ -16,7 +16,8 @@ feature 'Customer views video class details' do
     video_class = create(:video_class, start_at: '2021-04-16 18:08:04',
                                        end_at: '2021-04-16 18:58:04', category: 'Musculação')
 
-    allow(Plan).to receive(:find_customer_plans).with('46465dssafd').and_return([])
+    allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
+                                                     .and_return(nil)
 
     login_as customer, scope: :customer
 
@@ -45,8 +46,8 @@ feature 'Customer views video class details' do
       num_classes_available: 5
     )
 
-    allow(Plan).to receive(:find_customer_plans).with('46465dssafd')
-                                                .and_return([customer_plan])
+    allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
+                                                     .and_return(customer_plan)
 
     login_as customer, scope: :customer
 
@@ -69,8 +70,8 @@ feature 'Customer views video class details' do
       num_classes_available: 5
     )
 
-    allow(Plan).to receive(:find_customer_plans).with('46465dssafd')
-                                                .and_return([customer_plan])
+    allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
+                                                     .and_return(customer_plan)
 
     login_as customer, scope: :customer
 
@@ -83,7 +84,8 @@ feature 'Customer views video class details' do
     customer = create(:customer, token: '46465dssafd')
     video_class = create(:video_class, category: 'Crossfit')
 
-    allow(Plan).to receive(:find_customer_plans).with('46465dssafd').and_return([])
+    allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
+                                                     .and_return(nil)
 
     login_as customer, scope: :customer
 
@@ -108,8 +110,8 @@ feature 'Customer watches video class' do
       num_classes_available: 5
     )
 
-    allow(Plan).to receive(:find_customer_plans).with('46465dssafd')
-                                                .and_return([customer_plan])
+    allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
+                                                     .and_return(customer_plan)
 
     login_as customer, scope: :customer
 
@@ -135,8 +137,8 @@ feature 'Customer watches video class' do
       num_classes_available: 5
     )
 
-    allow(Plan).to receive(:find_customer_plans).with('46465dssafd')
-                                                .and_return([customer_plan])
+    allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
+                                                     .and_return(customer_plan)
 
     login_as customer, scope: :customer
 

@@ -9,21 +9,15 @@ feature 'customer sees next available classes' do
       name: 'Plano Black',
       price: 109.90,
       categories: [
-        {
-          id: 1,
-          name: 'Bodybuilding'
-        },
-        {
-          id: 2,
-          name: 'Crossfit'
-        }
+        Category.new(id: 1, name: 'Bodybuilding'),
+        Category.new(id: 2, name: 'Crossfit')
       ],
       num_classes_available: 30
     )
 
     allow(DateTime).to receive(:now) { DateTime.parse '2021-03-17 20:30:00.000000000 -0300' }
-    allow(Plan).to receive(:find_customer_plans).with('a2w5q8y10ei')
-                                                .and_return([customer_plan])
+    allow(Enrollment).to receive(:find_customer_plan).with('a2w5q8y10ei')
+                                                     .and_return(customer_plan)
 
     allow(aluno).to receive(:token).and_return('a2w5q8y10ei')
 

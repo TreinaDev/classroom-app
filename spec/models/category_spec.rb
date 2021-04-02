@@ -14,7 +14,7 @@ describe Plan do
       resp_json = File.read(Rails.root.join('spec/support/apis/get_categories.json'))
       resp_double = double('faraday_response', status: 200, body: resp_json)
 
-      allow(Faraday).to receive(:get).with('smartflix.com.br/api/v1/categories')
+      allow(Faraday).to receive(:get).with("#{Rails.configuration.external_apis['enrollments_url']}/categories")
                                      .and_return(resp_double)
 
       categories = Category.all

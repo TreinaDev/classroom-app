@@ -24,7 +24,7 @@ class VideoClassesController < ApplicationController
   def show
     return [] unless customer_signed_in?
 
-    @plans = Plan.find_customer_plans(current_customer.token)
+    @plan = Enrollment.find_customer_plan(current_customer.token)
   end
 
   def edit
