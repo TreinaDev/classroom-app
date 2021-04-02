@@ -1,11 +1,14 @@
 [
-  { "id": 1,
+  {
+    "id": 1,
     "name": "Cartão de Crédito"
   },
-  { "id": 2,
+  {
+    "id": 2,
     "name": "Boleto" 
   },
-  { "id": 3,
+  {
+    "id": 3,
     "name": "Pix" 
   }
 ]

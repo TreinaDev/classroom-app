@@ -24,6 +24,10 @@ feature 'User create new video class' do
     ]
 
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
+    allow(Category).to receive(:find_by).with(id: 3).and_return(categories[2])
+    allow(Category).to receive(:find_by).with(id: 4).and_return(categories[3])
 
     login_as user, scope: :user
 
@@ -93,6 +97,8 @@ feature 'User edit video class' do
       Category.new(id: 2, name: 'Crossfit')
     ]
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -112,6 +118,10 @@ feature 'User edit video class' do
     ]
 
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
+    allow(Category).to receive(:find_by).with(id: 3).and_return(categories[2])
+    allow(Category).to receive(:find_by).with(id: 4).and_return(categories[3])
 
     login_as user, scope: :user
 
@@ -145,6 +155,10 @@ feature 'User edit video class' do
     ]
 
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
+    allow(Category).to receive(:find_by).with(id: 3).and_return(categories[2])
+    allow(Category).to receive(:find_by).with(id: 4).and_return(categories[3])
 
     login_as user, scope: :user
 
@@ -175,6 +189,8 @@ feature 'User can disable video class' do
       Category.new(id: 2, name: 'Crossfit')
     ]
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 
@@ -191,6 +207,8 @@ feature 'User can disable video class' do
       Category.new(id: 2, name: 'Crossfit')
     ]
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     login_as user, scope: :user
 

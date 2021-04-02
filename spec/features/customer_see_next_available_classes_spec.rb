@@ -8,20 +8,22 @@ feature 'customer sees next available classes' do
       Category.new(id: 2, name: 'Crossfit')
     ]
 
-    customer_plan = Plan.new(
-      id: 1,
-      name: 'Plano Black',
-      price: 109.90,
-      categories: categories,
-      num_classes_available: 30
-    )
+    customer_plan = Plan.new(id: 1, name: 'Plano Black',
+                             monthly_rate: 109.90,
+                             monthly_class_limit: 30,
+                             description: 'Para aqueles que querem entrar em forma',
+                             status: 'active',
+                             class_categories: categories)
 
     time = ActiveSupport::TimeZone.new('Brasilia')
     allow(Time).to receive(:zone) { time }
     allow(time).to receive(:now) { DateTime.parse '2021-03-17 20:30:00.000000000 -0300' }
-    allow(Plan).to receive(:find_customer_plans).with('a2w5q8y10ei')
-                                                .and_return([customer_plan])
+    allow(Plan).to receive(:all).and_return([])
+    allow(Enrollment).to receive(:find_customer_plan).with('a2w5q8y10ei')
+                                                     .and_return(customer_plan)
     allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
 
     allow(aluno).to receive(:token).and_return('a2w5q8y10ei')
 

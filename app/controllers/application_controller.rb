@@ -19,15 +19,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def find_customer_plans
-    if session[:current_customer_plans]
-      Plan.build_plan(session[:current_customer_plans])
+  def find_customer_plan
+    if session[:current_customer_plan]
+      Plan.build_plan(session[:current_customer_plan])
     elsif customer_signed_in?
-      plans = Plan.find_customer_plans(current_customer.token)
-      session[:current_customer_plans] = plans.to_json
-      plans
-    else
-      []
+      plan = Enrollment.find_customer_plan(current_customer.token)
+      session[:current_customer_plan] = plan.to_json
+      plan
     end
   end
 end

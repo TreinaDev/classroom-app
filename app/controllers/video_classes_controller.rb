@@ -24,16 +24,13 @@ class VideoClassesController < ApplicationController
   def show
     return [] unless customer_signed_in?
 
-    current_customer.plans = find_customer_plans
+    current_customer.plan = Enrollment.find_customer_plan(current_customer.token)
   end
 
   def scheduled
-    plans = Plan.find_customer_plans(current_customer.token)
+    plan = Enrollment.find_customer_plan(current_customer.token)
 
-    categories = plans.map(&:categories)
-                      .flatten
-                      .uniq(&:id)
-
+    categories = plan.class_categories
     current_time = Time.zone.now
 
     @video_classes_hash = {}
@@ -66,7 +63,7 @@ class VideoClassesController < ApplicationController
   def watch
     set_video_class
 
-    current_customer.plans = find_customer_plans
+    current_customer.plan = find_customer_plan
     @play = true
     @watched_class = WatchedClass.create(video_class: @video_class, customer: current_customer)
 

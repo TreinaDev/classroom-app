@@ -1,5 +1,6 @@
 defaults: &defaults
-  payments_url: http://localhost:5000/api/v1/payment_methods
+  payments_url: http://localhost:5000/api/v1
+  enrollments_url: http://localhost:4000/api/v1
 
 development:
   <<: *defaults

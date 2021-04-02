@@ -10,10 +10,10 @@ class Customer < ApplicationRecord
   validates :full_name, :cpf, :age, :birth_date, presence: true
   validates :token, presence: true, on: :update
 
-  attr_accessor :plans
+  attr_accessor :plan
 
   def send_data_to_enrollments_api
-    url = 'smartflix.com.br/api/v1/enrollments'
+    url = "#{Rails.configuration.external_apis['enrollments_url']}/enrollments"
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
     return false if response.status == 401
 
@@ -32,7 +32,7 @@ class Customer < ApplicationRecord
   end
 
   def plan?
-    plans.any?
+    !!plan
   end
 
   private
