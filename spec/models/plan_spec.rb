@@ -3,26 +3,18 @@ require 'rails_helper'
 describe Plan do
   context 'PORO' do
     it 'should initialize a new plan' do
+      categories = [
+        Category.new(id: 1, name: 'Yoga'),
+        Category.new(id: 2, name: 'FitDance'),
+        Category.new(id: 3, name: 'Crossfit')
+      ]
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
-                      categories: [
-                        {
-                          id: 1,
-                          name: 'Yoga'
-                        },
-                        {
-                          id: 2,
-                          name: 'FitDance'
-                        },
-                        {
-                          id: 3,
-                          name: 'Crossfit'
-                        }
-                      ],
+                      categories: categories,
                       num_classes_available: 30)
 
       expect(plan.name).to eq('Plano Black')
-      expect(plan.categories).to eq [{ id: 1, name: 'Yoga' }, { id: 2, name: 'FitDance' }, { id: 3, name: 'Crossfit' }]
+      expect(plan.categories).to eq categories
       expect(plan.num_classes_available).to eq(30)
       expect(plan.price).to eq('109,90')
     end
@@ -75,12 +67,15 @@ describe Plan do
       allow(Faraday).to receive(:get).with("smartflix.com.br/api/v1/enrollment/#{customer.token}/plans")
                                      .and_return(resp_double)
 
-      plan = Plan.find_customer_plans(customer.token)
+      plan = Plan.find_customer_plans(customer.token).first
+      categories = plan.categories
 
-      expect(plan.first.name).to eq 'Plano Smart'
-      expect(plan.first.categories).to eq [{ id: 1, name: 'Yoga' }, { id: 2, name: 'FitDance' }]
-      expect(plan.first.num_classes_available).to eq 15
-      expect(plan.first.price).to eq '69,90'
+      expect(plan.name).to eq 'Plano Smart'
+      expect(categories.size).to eq(2)
+      expect(categories.first.name).to eq('Yoga')
+      expect(categories.last.name).to eq('FitDance')
+      expect(plan.num_classes_available).to eq 15
+      expect(plan.price).to eq '69,90'
     end
 
     it 'should return empty if not authorized' do
@@ -98,7 +93,7 @@ describe Plan do
 
   context '#watch_video_class?' do
     it 'successfully' do
-      video_class = create(:video_class, category: 'Crossfit')
+      video_class = create(:video_class, category_id: 3)
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
                       categories: [
@@ -112,7 +107,7 @@ describe Plan do
     end
 
     it 'failure' do
-      video_class = create(:video_class, category: 'Crossfit')
+      video_class = create(:video_class, category_id: 3)
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
                       categories: [

@@ -1,4 +1,5 @@
 # Sistemas de Aulas
+
 ## Breve Descrição
 
 Responsável pelo gerenciamento das aulas na plataforma **SmartFlix** com atribuições dedicadas ao cadastro dos Alunos, Professores e Aulas. É a primeira camada de contato entre visitante ou cliente (aluno) com o objetivo principal de oferecer serviço de streaming de aulas com limitações de acesso em função do plano adquirido.

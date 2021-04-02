@@ -88,6 +88,11 @@ feature 'User edit video class' do
   scenario 'have link' do
     user = create(:user)
     create(:video_class, user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 
@@ -165,6 +170,11 @@ feature 'User can disable video class' do
   scenario 'have link' do
     user = create(:user)
     create(:video_class, user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 
@@ -176,6 +186,11 @@ feature 'User can disable video class' do
   scenario 'successfully' do
     user = create(:user)
     video_class = create(:video_class, user: user)
+    categories = [
+      Category.new(id: 1, name: 'Bodybuilding'),
+      Category.new(id: 2, name: 'Crossfit')
+    ]
+    allow(Category).to receive(:all).and_return(categories)
 
     login_as user, scope: :user
 

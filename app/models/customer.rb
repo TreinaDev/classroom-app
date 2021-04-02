@@ -10,13 +10,17 @@ class Customer < ApplicationRecord
   validates :full_name, :cpf, :age, :birth_date, presence: true
   validates :token, presence: true, on: :update
 
+  attr_accessor :plans
+
   def send_data_to_enrollments_api
     url = 'smartflix.com.br/api/v1/enrollments'
     response = Faraday.post(url, build_data, 'Content-Type' => 'application/json')
     return false if response.status == 401
 
-    update(token: response.body)
-    return response if response.status == 201
+    hashed_response = JSON.parse(response.body, symbolize_names: true)
+    add_token(hashed_response[:token])
+
+    return hashed_response if response.status == 201
   end
 
   def build_data
@@ -25,5 +29,15 @@ class Customer < ApplicationRecord
       birth_date: self.birth_date,
       email: self.email,
       payment_methods: self.payment_methods }.to_json
+  end
+
+  def plan?
+    plans.any?
+  end
+
+  private
+
+  def add_token(token)
+    update(token: token)
   end
 end

@@ -1,6 +1,6 @@
 class VideoClassesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update disable]
-  before_action :authenticate_user_or_customer!, only: %i[show]
+  before_action :authenticate_user_or_customer!, only: %i[show scheduled]
   before_action :set_video_class, only: %i[show edit update disable]
 
   def new
@@ -24,7 +24,23 @@ class VideoClassesController < ApplicationController
   def show
     return [] unless customer_signed_in?
 
-    @plans = Plan.find_customer_plans(current_customer.token)
+    current_customer.plans = find_customer_plans
+  end
+
+  def scheduled
+    plans = Plan.find_customer_plans(current_customer.token)
+
+    categories = plans.map(&:categories)
+                      .flatten
+                      .uniq(&:id)
+
+    current_time = Time.zone.now
+
+    @video_classes_hash = {}
+    categories.each do |category|
+      @video_classes_hash[category.name] = VideoClass.enabled.where(category_id: category.id)
+                                                     .where('start_at > ?', current_time)
+    end
   end
 
   def edit
@@ -50,6 +66,7 @@ class VideoClassesController < ApplicationController
   def watch
     set_video_class
 
+    current_customer.plans = find_customer_plans
     @play = true
     @watched_class = WatchedClass.create(video_class: @video_class, customer: current_customer)
 
@@ -65,6 +82,6 @@ class VideoClassesController < ApplicationController
   def video_class_params
     params.require(:video_class).permit(:name, :description,
                                         :video_url, :start_at,
-                                        :end_at, :category)
+                                        :end_at, :category_id)
   end
 end

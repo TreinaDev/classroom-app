@@ -6,9 +6,12 @@ class VideoClass < ApplicationRecord
 
   enum status: { enabled: 0, disabled: 5 }
 
-  validates :name, :description, :start_at, :end_at,
-            :video_url, :category, presence: true
+  validates :name, :description, :start_at, :end_at, :video_url, :category_id, presence: true
   validate :end_date_cannot_be_before_start_date
+
+  def category
+    @category ||= Category.all.find { |cat| cat.id == category_id }
+  end
 
   private
 

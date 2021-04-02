@@ -9,10 +9,13 @@ Rails.application.routes.draw do
     registrations: 'customers/registrations'
   }
 
+  resources :customers, only: %i[ show ]
+
   resources :users, only: %i[ show ]
     
   resources :video_classes, only: %i[ new create show edit update ] do
-    post "disable", on: :member
+    get 'scheduled', on: :collection
     post 'watch', on:  :member
+    post "disable", on: :member
   end
 end
