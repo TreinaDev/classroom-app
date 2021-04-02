@@ -11,4 +11,4 @@ pt-BR:
         video_url: Endereço URL da Aula
         start_at: Data de Início
         end_at: Data de Fim
-        category: Categoria
+        category_id: Categoria

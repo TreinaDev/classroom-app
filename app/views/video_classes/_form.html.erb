@@ -37,9 +37,9 @@
   </div>
 
   <div>
-    <%= f.label :category %><br>
-    <%= f.collection_select :category,
-                 @categories, :name, :name,
+    <%= f.label :category_id %><br>
+    <%= f.collection_select :category_id,
+                 @categories, :id, :name,
                  prompt: '--select--' %>
   </div>
 

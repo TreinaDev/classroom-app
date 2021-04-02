@@ -27,6 +27,7 @@ feature 'Customer see scheduled video class' do
     allow(Plan).to receive(:find_customer_plans).with('a2w5q8y10ei')
                                                 .and_return([customer_plan])
     allow(aluno).to receive(:token).and_return('a2w5q8y10ei')
+    allow(Category).to receive(:all).and_return(customer_plan.categories)
 
     crossfit_teacher = create(:user,
                               email: 'crossfit@smartflix.com.br',
@@ -42,25 +43,25 @@ feature 'Customer see scheduled video class' do
            user: crossfit_teacher,
            start_at: '17-03-2021 20:00:00',
            end_at: '17-03-2021 21:30:00',
-           category: 'Crossfit')
+           category_id: 2)
     create(:video_class,
            name: 'CrossFit - Aula 01',
            user: crossfit_teacher,
            start_at: '18-03-2021 20:00:00',
            end_at: '18-03-2021 21:30:00',
-           category: 'Crossfit')
+           category_id: 2)
     create(:video_class,
            name: 'Musculacao - Aula inaugural',
            user: bodybuilding_teacher,
            start_at: '17-03-2021 20:00:00',
            end_at: '17-03-2021 21:30:00',
-           category: 'Bodybuilding')
+           category_id: 1)
     create(:video_class,
            name: 'Musculacao - Aula 01',
            user: bodybuilding_teacher,
            start_at: '18-03-2021 20:00:00',
            end_at: '18-03-2021 21:30:00',
-           category: 'Bodybuilding')
+           category_id: 1)
 
     login_as aluno, scope: :customer
 
