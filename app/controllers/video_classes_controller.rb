@@ -24,7 +24,7 @@ class VideoClassesController < ApplicationController
   def show
     return [] unless customer_signed_in?
 
-    @plan = Enrollment.find_customer_plan(current_customer.token)
+    current_customer.plan = Enrollment.find_customer_plan(current_customer.token)
   end
 
   def edit
@@ -50,6 +50,7 @@ class VideoClassesController < ApplicationController
   def watch
     set_video_class
 
+    current_customer.plan = find_customer_plan
     @play = true
     @watched_class = WatchedClass.create(video_class: @video_class, customer: current_customer)
 
@@ -65,6 +66,6 @@ class VideoClassesController < ApplicationController
   def video_class_params
     params.require(:video_class).permit(:name, :description,
                                         :video_url, :start_at,
-                                        :end_at, :category)
+                                        :end_at, :category_id)
   end
 end

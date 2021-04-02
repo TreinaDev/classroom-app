@@ -14,21 +14,32 @@ class Plan
     @num_classes_available = num_classes_available
   end
 
-  def watch_video_class?(video_class)
-    categories.map(&:name).include?(video_class.category)
+  def watch_video_class?(category)
+    categories.include?(category)
   end
 
-  def self.all
-    response = Faraday.get(join_path(PLANS_RELATIVE_PATH))
+  class << self
+    def all
+      response = Faraday.get(join_path(PLANS_RELATIVE_PATH))
 
-    return [] if response.status != 200
+      return [] if response.status != 200
 
-    json_response = JSON.parse(response.body, symbolize_names: true)
-
-    json_response = json_response.map do |r|
-      r[:categories].map! { |category| Category.new(category) }
-      r
+      build_plans(response.body)
     end
-    json_response.map { |r| new(r) }
+
+    def build_plans(body)
+      plans_hash_array = JSON.parse(body, symbolize_names: true)
+      plans_hash_array = plans_hash_array.map do |r|
+        r[:categories].map! { |category| Category.new(id: category[:id], name: category[:name]) }
+        r
+      end
+      plans_hash_array.map { |r| new(r) }
+    end
+
+    def build_plan(body)
+      plan_hash = JSON.parse(body, symbolize_names: true)
+      plan_hash[:categories].map! { |category| Category.new(id: category[:id], name: category[:name]) }
+      new(plan_hash)
+    end
   end
 end

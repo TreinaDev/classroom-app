@@ -60,41 +60,9 @@ describe Plan do
     end
   end
 
-  context 'Fetch API data to get customer plan' do
-    it 'should get customer plan' do
-      resp_json = File.read(Rails.root.join('spec/support/apis/get_customer_plan.json'))
-      resp_double = double('faraday_response', status: 200, body: resp_json)
-      customer = create(:customer, token: '46465dssafd')
-
-      allow(Faraday).to receive(:get)
-        .with("#{Rails.configuration.external_apis['enrollments_url']}/enrollments/#{customer.token}/plan")
-        .and_return(resp_double)
-
-      plan = Enrollment.find_customer_plan(customer.token)
-
-      expect(plan.name).to eq 'Plano Smart'
-      expect(plan.categories).to eq [{ id: 1, name: 'Yoga' }, { id: 2, name: 'FitDance' }]
-      expect(plan.num_classes_available).to eq 15
-      expect(plan.price).to eq '69,90'
-    end
-
-    it 'should return empty if not authorized' do
-      resp_double = double('faraday_response', status: 401, body: '[]')
-      customer = create(:customer, token: '46465dssafd')
-
-      allow(Faraday).to receive(:get)
-        .with("#{Rails.configuration.external_apis['enrollments_url']}/enrollments/#{customer.token}/plan")
-        .and_return(resp_double)
-
-      plan = Enrollment.find_customer_plan(customer.token)
-
-      expect(plan).to eq nil
-    end
-  end
-
   context '#watch_video_class?' do
     it 'successfully' do
-      video_class = create(:video_class, category: 'Crossfit')
+      video_class = create(:video_class, category_id: 3)
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
                       categories: [
@@ -103,12 +71,13 @@ describe Plan do
                         Category.new(id: 3, name: 'Crossfit')
                       ],
                       num_classes_available: 30)
+      allow(Category).to receive(:find_by).and_return(plan.categories[2])
 
-      expect(plan.watch_video_class?(video_class)).to be_truthy
+      expect(plan.watch_video_class?(video_class.category)).to be_truthy
     end
 
     it 'failure' do
-      video_class = create(:video_class, category: 'Crossfit')
+      video_class = create(:video_class, category_id: 3)
       plan = Plan.new(id: 1, name: 'Plano Black',
                       price: '109,90',
                       categories: [
@@ -116,8 +85,9 @@ describe Plan do
                         Category.new(id: 2, name: 'FitDance')
                       ],
                       num_classes_available: 30)
+      allow(Category).to receive(:find_by).and_return(nil)
 
-      expect(plan.watch_video_class?(video_class)).not_to be_truthy
+      expect(plan.watch_video_class?(video_class.category)).to be_falsy
     end
   end
 end

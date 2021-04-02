@@ -43,4 +43,28 @@ describe Customer do
       expect(response).to eq(false)
     end
   end
+
+  context '#plan?' do
+    it 'successfully' do
+      customer = create(:customer, token: '46465dssafd')
+      plan = Plan.new(id: 1, name: 'Plano Black',
+                      price: '109,90',
+                      categories: [
+                        Category.new(id: 1, name: 'Yoga'),
+                        Category.new(id: 2, name: 'FitDance'),
+                        Category.new(id: 3, name: 'Crossfit')
+                      ],
+                      num_classes_available: 30)
+      customer.plan = plan
+
+      expect(customer.plan?).to be_truthy
+    end
+
+    it 'failure' do
+      customer = create(:customer, token: '46465dssafd')
+      customer.plan = nil
+
+      expect(customer.plan?).to be_falsy
+    end
+  end
 end
