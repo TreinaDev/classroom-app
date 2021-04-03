@@ -6,7 +6,7 @@ FactoryBot.define do
     start_at { '2021-04-16 18:08:04' }
     end_at { '2021-04-16 18:58:04' }
     category_id { 1 }
-    status { 0 }
+    status { :enabled }
 
     user
   end

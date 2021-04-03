@@ -54,7 +54,7 @@ feature 'customer sees next available classes' do
                           start_at: '17-03-2021 20:00:00',
                           end_at: '17-03-2021 21:30:00',
                           category_id: 2,
-                          status: 5)
+                          status: :disabled)
     bodybuilding01 = create(:video_class,
                             name: 'Musculacao - Aula inaugural',
                             user: bodybuilding_teacher,

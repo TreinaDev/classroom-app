@@ -121,7 +121,7 @@ feature 'Customer views video class details' do
       Category.new(id: 2, name: 'Crossfit'),
       Category.new(id: 1, name: 'Bodybuilding')
     ]
-    video_class = create(:video_class, category_id: 1, status: 5)
+    video_class = create(:video_class, category_id: 1, status: :disabled)
     allow(Category).to receive(:all).and_return(categories)
     allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
     allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])

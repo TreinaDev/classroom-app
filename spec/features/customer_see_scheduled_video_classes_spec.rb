@@ -57,7 +57,7 @@ feature 'Customer see scheduled video class' do
            start_at: '19-03-2021 20:00:00',
            end_at: '19-03-2021 21:30:00',
            category_id: 2,
-           status: 5)
+           status: :disabled)
     create(:video_class,
            name: 'Musculacao - Aula inaugural',
            user: bodybuilding_teacher,
