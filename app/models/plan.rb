@@ -35,15 +35,10 @@ class Plan
     hash == other.hash
   end
 
-<<<<<<< HEAD
-    new(id: json_response, name: json_response, price: json_response, 
-        num_classes_available: json_response, categories: json_response)
-=======
   def hash
     instance_variables.map { |var| instance_variable_get(var).hash }
                       .sum
                       .hash
->>>>>>> 5eca136a1c6b81204f614e43e59d38604df6f5e0
   end
 
   class << self

@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     current_customer.plan = Enrollment.find_customer_plan(current_customer.token)
-
+    
     categories = current_customer.plan.class_categories.map(&:id)
 
     @video_classes = onlive_video_classes(categories)

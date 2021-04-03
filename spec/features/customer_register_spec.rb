@@ -20,35 +20,38 @@ feature 'customer register' do
     expect(current_path).to eq(new_customer_registration_path)
   end
 
-  scenario 'successfully' do
-    resp_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
-    get_resp_double = double('faraday_response', status: 200, body: resp_json)
+  scenario 'and redirect to enrollment' do
+    payment_methods_json = File.read(Rails.root.join('spec/support/apis/payment_methods.json'))
+    get_payment_methods_double = double('faraday_response', status: 200, body: payment_methods_json)
 
     plans_json = File.read(Rails.root.join('spec/support/apis/get_plans.json'))
-    plans_double = double('faraday_response', status: 200, body: plans_json)
+    get_plans_double = double('faraday_response', status: 200, body: plans_json)
 
-    resp_customer_plans_double = double('faraday_response',
+    resp_customer_plan_double = double('faraday_response',
                                         status: 404,
-                                        body: '{}')
+                                        body: '{"msg":"Token não encontrado"}')
 
-    resp_post_json = File.read(Rails.root.join('spec/support/apis/get_token.json'))
-    post_resp_double = double('faraday_response', status: 201, body: resp_post_json)
-    resp_post_hash = JSON.parse(resp_post_json, symbolize_names: true)
+    token_json = File.read(Rails.root.join('spec/support/apis/get_token.json'))
+    post_token_double = double('faraday_response', status: 201, body: token_json)
+    token_hash = JSON.parse(token_json, symbolize_names: true)
 
     allow(Faraday).to receive(:get)
       .with("#{Rails.configuration.external_apis['payments_url']}/payment_methods")
-      .and_return(get_resp_double)
+      .and_return(get_payment_methods_double)
 
     allow(Faraday).to receive(:get)
       .with("#{Rails.configuration.external_apis['enrollments_url']}/plans")
-      .and_return(plans_double)
+      .and_return(get_plans_double)
 
     allow(Faraday).to receive(:get)
       .with(
         "#{Rails.configuration.external_apis['enrollments_url']}" \
-        "/enrollments/#{resp_post_hash[:token]}"
+        "/enrollments/#{token_hash[:token]}"
       )
-      .and_return(resp_customer_plans_double)
+      .and_return(resp_customer_plan_double)
+
+    allow(Faraday).to receive(:get)
+      .with('http://localhost:4000', {'Accept' => 'application/html'})
 
     allow(Faraday).to receive(:post)
       .with(
@@ -60,7 +63,7 @@ feature 'customer register' do
           payment_methods: 1 }.to_json,
         'Content-Type' => 'application/json'
       )
-      .and_return(post_resp_double)
+      .and_return(post_token_double)
 
     visit new_customer_registration_path
 
@@ -77,13 +80,7 @@ feature 'customer register' do
       click_on 'Inscrever-se'
     end
 
-    expect(current_path).to eq root_path
-    expect(Customer.last.email).to eq('guilherme@gmail.com')
-    expect(Customer.last.full_name).to eq('Guilherme Marques')
-    expect(Customer.last.cpf).to eq('300.119.400-45')
-    expect(Customer.last.age).to eq(37)
-    expect(I18n.l(Customer.last.birth_date)).to eq('25/11/1983')
-    expect(Customer.last.payment_methods).to eq(1)
+    expect(current_path).to eq Rails.configuration.external_apis[:choose_plan_url]
   end
 
   scenario 'and should not allow empty fields' do

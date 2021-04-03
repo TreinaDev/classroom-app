@@ -31,10 +31,6 @@ class Customer < ApplicationRecord
       payment_methods: self.payment_methods }.to_json
   end
 
-<<<<<<< HEAD
-  def customer_plan?(token)
-    false
-=======
   def plan?
     !!plan
   end
@@ -43,6 +39,5 @@ class Customer < ApplicationRecord
 
   def add_token(token)
     update(token: token)
->>>>>>> 5eca136a1c6b81204f614e43e59d38604df6f5e0
   end
 end
