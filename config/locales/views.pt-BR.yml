@@ -1,6 +1,6 @@
 pt-BR:
   video_classes:
     show:
-      video_class_details: 'Detalhes da aula'
+      disabled_name: "%{name} (Vaga desabilitada)"
       schedule: 'Horário'
       attend_class: 'Participar da aula'

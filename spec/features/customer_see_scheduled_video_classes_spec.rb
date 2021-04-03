@@ -52,6 +52,13 @@ feature 'Customer see scheduled video class' do
            end_at: '18-03-2021 21:30:00',
            category_id: 2)
     create(:video_class,
+           name: 'CrossFit - Aula 02',
+           user: crossfit_teacher,
+           start_at: '19-03-2021 20:00:00',
+           end_at: '19-03-2021 21:30:00',
+           category_id: 2,
+           status: :disabled)
+    create(:video_class,
            name: 'Musculacao - Aula inaugural',
            user: bodybuilding_teacher,
            start_at: '17-03-2021 20:00:00',
@@ -81,6 +88,9 @@ feature 'Customer see scheduled video class' do
 
     within('div#Crossfit') do
       expect(page).not_to have_content('CrossFit - Aula inaugural')
+    end
+    within('div#Crossfit') do
+      expect(page).not_to have_content('CrossFit - Aula 02')
     end
     within('div#Bodybuilding') do
       expect(page).not_to have_content('Musculacao - Aula inaugural')

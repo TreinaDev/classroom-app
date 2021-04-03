@@ -114,6 +114,26 @@ feature 'Customer views video class details' do
 
     expect(page).not_to have_link 'Participar da aula'
   end
+
+  scenario 'link disappear if video class is disabled' do
+    customer = create(:customer, token: '46465dssafd')
+    categories = [
+      Category.new(id: 2, name: 'Crossfit'),
+      Category.new(id: 1, name: 'Bodybuilding')
+    ]
+    video_class = create(:video_class, category_id: 1, status: :disabled)
+    allow(Category).to receive(:all).and_return(categories)
+    allow(Category).to receive(:find_by).with(id: 1).and_return(categories[0])
+    allow(Category).to receive(:find_by).with(id: 2).and_return(categories[1])
+    allow(Enrollment).to receive(:find_customer_plan).with('46465dssafd')
+                                                     .and_return(nil)
+
+    login_as customer, scope: :customer
+
+    visit video_class_path(video_class)
+
+    expect(page).not_to have_link 'Participar da aula'
+  end
 end
 
 feature 'Customer watches video class' do

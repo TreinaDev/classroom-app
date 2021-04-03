@@ -64,7 +64,7 @@ feature 'User views his panel' do
   end
 end
 
-feature 'User can edit and delete video class' do
+feature 'User can edit and disable video class' do
   scenario 'have link to edit' do
     user = create(:user)
     create(:video_class, user: user)
@@ -86,7 +86,7 @@ feature 'User can edit and delete video class' do
     expect(page).to have_link('Editar').twice
   end
 
-  scenario 'have link to delete' do
+  scenario 'have link to disable' do
     user = create(:user)
     create(:video_class, user: user)
     create(:video_class, name: 'Secar barriga',
@@ -104,6 +104,6 @@ feature 'User can edit and delete video class' do
 
     visit user_root_path
 
-    expect(page).to have_link('Apagar aula').twice
+    expect(page).to have_link('Desabilitar aula').twice
   end
 end

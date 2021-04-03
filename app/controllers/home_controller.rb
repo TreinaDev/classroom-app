@@ -14,9 +14,9 @@ class HomeController < ApplicationController
   def onlive_video_classes(categories)
     current_time = Time.zone.now
 
-    VideoClass.where('category_id IN (?) AND' \
-                     '? BETWEEN start_at AND end_at',
-                     categories,
-                     current_time)
+    VideoClass.enabled.where('category_id IN (?) AND' \
+                             '? BETWEEN start_at AND end_at',
+                             categories,
+                             current_time)
   end
 end

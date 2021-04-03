@@ -180,7 +180,7 @@ feature 'User edit video class' do
   end
 end
 
-feature 'User can delete video class' do
+feature 'User can disable video class' do
   scenario 'have link' do
     user = create(:user)
     create(:video_class, user: user)
@@ -196,7 +196,7 @@ feature 'User can delete video class' do
 
     visit user_root_path
 
-    expect(page).to have_link('Apagar aula')
+    expect(page).to have_link('Desabilitar aula')
   end
 
   scenario 'successfully' do
@@ -213,9 +213,11 @@ feature 'User can delete video class' do
     login_as user, scope: :user
 
     visit user_root_path
-    click_on 'Apagar aula'
+    click_on 'Desabilitar aula'
 
-    expect(page).to have_content 'Aula apagada com sucesso!'
+    video_class.reload
+    expect(page).to have_content 'Aula desabilitada com sucesso!'
     expect(page).not_to have_link video_class.name
+    expect(video_class.disabled?).to eq true
   end
 end

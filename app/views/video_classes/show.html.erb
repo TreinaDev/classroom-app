@@ -1,11 +1,14 @@
-<h1><%= t('.video_class_details') %></h1>
+<% if @video_class.disabled? %>
+  <h1><%= t(".disabled_name", name: @video_class.name) %></h1>
+<% else %>
+  <h1><%= @video_class.name %></h1>
+<% end %>
 
-<h1><%= @video_class.name %></h1>
 <dt><%= VideoClass.human_attribute_name("description") %></dt>
 <dd><%= @video_class.description %></dd>
 <dt><%= VideoClass.human_attribute_name("video_url") %></dt>
 <dd><%= @video_class.video_url  %></dd>
-<dt><%= VideoClass.human_attribute_name("category") %></dt>
+<dt><%= VideoClass.human_attribute_name("category_id") %></dt>
 <dd><%= @video_class.category.name %></dd>
 <dt><%= User.model_name.human %></dt>
 <dd><%= @video_class.user.name  %></dd>
@@ -17,7 +20,7 @@
 <dt><%= VideoClass.human_attribute_name("start_at") %></dt>
 <dd><%= I18n.localize(@video_class.start_at.to_date) %></dd>
 
-<% if customer_signed_in? %>
+<% if customer_signed_in? && @video_class.enabled? %>
   <% if current_customer.plan&.watch_video_class?(@video_class.category) %>
     <%= link_to t('.attend_class'),
                 watch_video_class_path(@video_class),

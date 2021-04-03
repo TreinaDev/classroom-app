@@ -11,10 +11,11 @@ Rails.application.routes.draw do
 
   resources :customers, only: %i[ show ]
 
-  resources :users, only: %i[show]
-
-  resources :video_classes do
+  resources :users, only: %i[ show ]
+    
+  resources :video_classes, only: %i[ new create show edit update ] do
     get 'scheduled', on: :collection
-    post 'watch', on: :member
+    post 'watch', on:  :member
+    post "disable", on: :member
   end
 end

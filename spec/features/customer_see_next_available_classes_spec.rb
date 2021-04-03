@@ -48,6 +48,13 @@ feature 'customer sees next available classes' do
                         start_at: '18-03-2021 20:00:00',
                         end_at: '18-03-2021 21:30:00',
                         category_id: 2)
+    crossfitkids = create(:video_class,
+                          name: 'CrossFitKids - Aula inaugural',
+                          user: crossfit_teacher,
+                          start_at: '17-03-2021 20:00:00',
+                          end_at: '17-03-2021 21:30:00',
+                          category_id: 2,
+                          status: :disabled)
     bodybuilding01 = create(:video_class,
                             name: 'Musculacao - Aula inaugural',
                             user: bodybuilding_teacher,
@@ -76,8 +83,10 @@ feature 'customer sees next available classes' do
     end
 
     expect(html).not_to have_selector("div\##{crossfit02.category.name}#{crossfit02.id}")
+    expect(html).not_to have_selector("div\##{crossfitkids.category.name}#{crossfitkids.id}")
     expect(html).not_to have_selector("div\##{bodybuilding02.category.name}#{bodybuilding02.id}")
     expect(page).not_to have_content('CrossFit - Aula 01')
+    expect(page).not_to have_content('CrossFitKids - Aula inaugural')
     expect(page).not_to have_content('Musculacao - Aula 01')
 
     expect(page).not_to have_link('Contratar')
